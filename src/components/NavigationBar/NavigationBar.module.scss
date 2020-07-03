@@ -3,6 +3,8 @@
 .root {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  height: spacing(3);
 }
 
 .links {

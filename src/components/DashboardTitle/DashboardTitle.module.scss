@@ -1,0 +1,18 @@
+@import '../../theme';
+
+.root {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  height: spacing(5);
+  font-size: spacing(4);
+}
+
+.title {
+  font-size: spacing(4.5);
+  margin-left: spacing(1);
+}
+
+.icon {
+  color: #cb7192; /* this color is outside of the color system */
+}
