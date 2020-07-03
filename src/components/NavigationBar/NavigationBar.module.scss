@@ -1,0 +1,15 @@
+@import '../../theme.scss';
+
+.root {
+  display: flex;
+  justify-content: space-between;
+}
+
+.links {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.awsConsoleTextContainer {
+  margin-right: spacing(2);
+}

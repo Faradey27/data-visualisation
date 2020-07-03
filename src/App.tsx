@@ -11,17 +11,19 @@ import ResourcesWidget from './widgets/ResourcesWidget';
 
 const App: React.FC<{}> = () => {
   return (
-    <div data-testid="root">
+    <div data-testid="app-root">
       <HeaderBar />
-      <div className={styles.space3} />
-      <NavigationBar />
-      <AlertTitle />
-      <div className={styles.space2} />
-      <ChartsWidget />
-      <div className={styles.space1} />
-      <ResourcesWidget />
-      <InsightsWidget />
-      <AlertsWidget />
+      <main className={styles.content}>
+        <div className={styles.space3} />
+        <NavigationBar />
+        <AlertTitle />
+        <div className={styles.space2} />
+        <ChartsWidget />
+        <div className={styles.space1} />
+        <ResourcesWidget />
+        <InsightsWidget />
+        <AlertsWidget />
+      </main>
     </div>
   );
 };

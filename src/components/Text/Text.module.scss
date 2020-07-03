@@ -1,0 +1,25 @@
+@import '../../theme';
+
+.root {
+  font-size: 14px;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.primary {
+  color: $textColorPrimary;
+}
+
+.secondary {
+  color: $textColorSecondary;
+}
+
+.accent {
+  color: $textColorAccent;
+}
+
+.iconRight {
+  margin-left: spacing(1);
+}
