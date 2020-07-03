@@ -1,0 +1,8 @@
+$space: 8;
+
+$textColor: #202225;
+$primary: #4c44c5;
+
+@function spacing($value) {
+  @return $value * $space * 1px;
+}

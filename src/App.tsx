@@ -1,26 +1,29 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+import styles from './App.module.scss';
+import AlertTitle from './components/DashboardTitle';
+import HeaderBar from './components/HeaderBar';
+import NavigationBar from './components/NavigationBar';
+import AlertsWidget from './widgets/AlertsWidget';
+import ChartsWidget from './widgets/ChartsWidget';
+import InsightsWidget from './widgets/InsightsWidget';
+import ResourcesWidget from './widgets/ResourcesWidget';
+
+const App: React.FC<{}> = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div data-testid="root">
+      <HeaderBar />
+      <div className={styles.space3} />
+      <NavigationBar />
+      <AlertTitle />
+      <div className={styles.space2} />
+      <ChartsWidget />
+      <div className={styles.space1} />
+      <ResourcesWidget />
+      <InsightsWidget />
+      <AlertsWidget />
     </div>
   );
-}
+};
 
 export default App;
