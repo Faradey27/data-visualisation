@@ -4,7 +4,10 @@ $textColorPrimary: #202225;
 $textColorSecondary: #c9c9c9;
 $textColorAccent: #4c44c5;
 
-$primary: #4c44c5;
+$primaryColor: #4c44c5;
+$backgroundColor: #f4f4f4;
+$white: #fff;
+$borderColor: #dbdcdb;
 
 @function spacing($value) {
   @return $value * $space * 1px;

@@ -11,9 +11,14 @@ export enum TextColor {
   accent = 'accent',
 }
 
+export enum TextSize {
+  small = 'small',
+}
+
 interface TextProps {
   children: React.ReactNode;
   color?: TextColor;
+  size?: TextSize;
   uppercase?: boolean;
   link?: boolean;
   href?: string;
@@ -25,10 +30,12 @@ const Text: React.FC<TextProps> = ({
   href,
   uppercase,
   color,
+  size,
   iconRight,
   children,
 }) => {
   const className = clsx(styles.root, {
+    [styles.small]: size === TextSize.small,
     [styles.uppercase]: uppercase,
     [styles.primary]: color === TextColor.primary,
     [styles.secondary]: color === TextColor.secondary,
