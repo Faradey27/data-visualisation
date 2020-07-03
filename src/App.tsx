@@ -20,9 +20,15 @@ const App: React.FC<{}> = () => {
         <div className={styles.space2} />
         <ChartsWidget />
         <div className={styles.space1} />
-        <ResourcesWidget />
-        <InsightsWidget />
-        <AlertsWidget />
+        <div className={styles.widgets}>
+          <div className={styles.spaceToRight}>
+            <ResourcesWidget />
+          </div>
+          <div className={styles.spaceToRight}>
+            <InsightsWidget />
+          </div>
+          <AlertsWidget />
+        </div>
       </main>
     </div>
   );

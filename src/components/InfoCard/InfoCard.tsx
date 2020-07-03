@@ -25,16 +25,33 @@ interface InfoCardProps {
   title: string;
   subtitle: string;
   variant: InfoCardVariant;
+  date?: number;
 }
 
-const InfoCard: React.FC<InfoCardProps> = ({ title, subtitle, variant }) => {
+const formatDate = (date?: number) => {
+  if (date) {
+    return '3 days ago';
+  }
+};
+
+const InfoCard: React.FC<InfoCardProps> = ({
+  title,
+  subtitle,
+  variant,
+  date,
+}) => {
   return (
     <div className={styles.root}>
       <div className={styles.leftSide}>
         <FontAwesomeIcon icon={variantIconsMap[variant]} />
       </div>
       <div className={styles.rightSide}>
-        <Text size={TextSize.small}>{title}</Text>
+        <div className={styles.title}>
+          <Text size={TextSize.small}>{title}</Text>
+          <Text size={TextSize.small} color={TextColor.secondary}>
+            {formatDate(date)}
+          </Text>
+        </div>
         <Text size={TextSize.small} color={TextColor.secondary}>
           {subtitle}
         </Text>
