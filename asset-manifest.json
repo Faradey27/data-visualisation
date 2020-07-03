@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/static/css/main.daffec0e.chunk.css",
-    "main.js": "/static/js/main.92bf52a4.chunk.js",
-    "main.js.map": "/static/js/main.92bf52a4.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.4d949d8a.js",
-    "runtime-main.js.map": "/static/js/runtime-main.4d949d8a.js.map",
-    "static/js/2.bdeba33e.chunk.js": "/static/js/2.bdeba33e.chunk.js",
-    "static/js/2.bdeba33e.chunk.js.map": "/static/js/2.bdeba33e.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.7e966db1c4e52b36491a141ec4004d36.js": "/precache-manifest.7e966db1c4e52b36491a141ec4004d36.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/main.daffec0e.chunk.css.map": "/static/css/main.daffec0e.chunk.css.map",
-    "static/js/2.bdeba33e.chunk.js.LICENSE.txt": "/static/js/2.bdeba33e.chunk.js.LICENSE.txt"
+    "main.css": "/dashbird-test-task/static/css/main.daffec0e.chunk.css",
+    "main.js": "/dashbird-test-task/static/js/main.92bf52a4.chunk.js",
+    "main.js.map": "/dashbird-test-task/static/js/main.92bf52a4.chunk.js.map",
+    "runtime-main.js": "/dashbird-test-task/static/js/runtime-main.9c6309d1.js",
+    "runtime-main.js.map": "/dashbird-test-task/static/js/runtime-main.9c6309d1.js.map",
+    "static/js/2.bdeba33e.chunk.js": "/dashbird-test-task/static/js/2.bdeba33e.chunk.js",
+    "static/js/2.bdeba33e.chunk.js.map": "/dashbird-test-task/static/js/2.bdeba33e.chunk.js.map",
+    "index.html": "/dashbird-test-task/index.html",
+    "precache-manifest.f656ef26165408b61742546a77001a1b.js": "/dashbird-test-task/precache-manifest.f656ef26165408b61742546a77001a1b.js",
+    "service-worker.js": "/dashbird-test-task/service-worker.js",
+    "static/css/main.daffec0e.chunk.css.map": "/dashbird-test-task/static/css/main.daffec0e.chunk.css.map",
+    "static/js/2.bdeba33e.chunk.js.LICENSE.txt": "/dashbird-test-task/static/js/2.bdeba33e.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.4d949d8a.js",
+    "static/js/runtime-main.9c6309d1.js",
     "static/js/2.bdeba33e.chunk.js",
     "static/css/main.daffec0e.chunk.css",
     "static/js/main.92bf52a4.chunk.js"
