@@ -1,0 +1,27 @@
+@import '../../theme.scss';
+
+.root {
+  display: flex;
+  height: spacing(7);
+  padding-top: spacing(1);
+  padding-bottom: spacing(1);
+  width: 100%;
+  background-color: $white;
+}
+
+.leftSide {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  width: spacing(5);
+  border-right: 1px solid $borderColor;
+  color: $primaryColor;
+}
+
+.rightSide {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-left: spacing(1);
+  padding-right: spacing(1);
+}

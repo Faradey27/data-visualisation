@@ -1,0 +1,19 @@
+@import '../../theme.scss';
+
+.root {
+  display: flex;
+  flex-wrap: wrap;
+  width: spacing(40);
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: spacing(3);
+}
+
+.cardContainer {
+  margin-top: spacing(0.5);
+}

@@ -16,7 +16,7 @@
 }
 
 .selectedTab {
-  border-left: 1px solid blue;
+  border-left: 1px solid $primaryColor;
   background-color: $white;
 
   .tabContent {
