@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/dashbird-test-task/precache-manifest.c1f08fd1cea9d0077a5e495c52ccfccb.js"
+  "/dashbird-test-task/precache-manifest.6f45ff3216fcfe236ab557ac695eb6e6.js"
 );
 
 self.addEventListener('message', (event) => {
