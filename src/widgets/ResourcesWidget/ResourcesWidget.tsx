@@ -1,9 +1,11 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { faTable } from '@fortawesome/free-solid-svg-icons';
 
 import HighlightStack, {
   HighlightStackItem,
 } from '../../components/HighlightStack';
+import { fetchResourcesDataAction } from '../../state/widgets';
 
 const cards = [
   {
@@ -27,6 +29,12 @@ const cards = [
 ];
 
 const ResourcesWidget: React.FC<{}> = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchResourcesDataAction());
+  }, [dispatch]);
+
   return (
     <HighlightStack title="Resources" left="Execution time">
       {cards.map((card) => (

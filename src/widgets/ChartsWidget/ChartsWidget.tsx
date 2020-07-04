@@ -37,11 +37,14 @@ const messages = defineMessage({
 const dataGenerator = (n: number) => {
   const data = [];
   for (let i = 0; i < n; i++) {
-    const value = Math.floor(Math.random() * 10 + 1);
+    const value0 = Math.floor(Math.random() * 10 + 1);
+    const value1 = Math.floor(Math.random() * 10 + 1);
+    const value2 = -Math.floor(Math.random() * 10 + 1);
     data.push({
       date: Date.now() + i * 1000 * 60 * 60,
-      value: Math.floor(Math.random() * 10 + 1),
-      usageValue: (value / 5) * (i % 2 ? -1 : 1),
+      size: value1 - value2,
+      pendingIncreased: value1 / 5,
+      pendingResolved: value2 / 5,
     });
   }
 
@@ -102,9 +105,10 @@ const ChartsWidget: React.FC<{}> = () => {
         <ChartLegend />
         <Chart
           data={data}
-          brushDataKey="value"
-          areaDataKey="value"
-          barDataKey="usageValue"
+          brushDataKey="size"
+          areaDataKey="size"
+          barDataKey="pendingIncreased"
+          barDataKey2="pendingResolved"
         />
       </TabPanel>
     </div>

@@ -4,8 +4,11 @@ import {
   AreaChart,
   Bar,
   Brush,
+  CartesianAxis,
+  CartesianGrid,
   Cell,
   ComposedChart,
+  ReferenceLine,
   ResponsiveContainer,
   XAxis,
   YAxis,
@@ -52,17 +55,51 @@ interface ChartProps {
   brushDataKey: string;
   areaDataKey: string;
   barDataKey: string;
+  barDataKey2: string;
 }
 
 const formatDateTick = (tick: number) => {
   return new Date(tick).getHours() + ':00';
 };
 
+const AnotherLine = (props: any) => {
+  const {
+    viewBox: { x, y },
+    xoffset,
+    yheight,
+  } = props;
+  // console.log("ANOTHER LINE",props)
+  return (
+    <line
+      x1={x + xoffset}
+      x2={x + xoffset}
+      y1={y - yheight / 2}
+      y2={y + yheight / 2}
+      {...props}
+    />
+  );
+};
+
+// function CustomXAxisLabel(props: any) {
+//   console.log(props);
+//   return (
+//     <line
+//       {...tickLineProps}
+//       {...lineCoord}
+//       className={classNames(
+//         'recharts-cartesian-axis-tick-line',
+//         _.get(tickLine, 'className')
+//       )}
+//     />
+//   );
+// }
+
 const Chart: React.FC<ChartProps> = ({
   data,
   brushDataKey,
   areaDataKey,
   barDataKey,
+  barDataKey2,
 }) => {
   const off = () => {
     return 0.1;
@@ -122,8 +159,22 @@ const Chart: React.FC<ChartProps> = ({
             traveller={renderBrushTraveller}
             alwaysShowText
           />
-          <XAxis dataKey="date" tickFormatter={formatDateTick} />
-          <YAxis dataKey={areaDataKey} axisLine={false} unit="K" />
+          <ReferenceLine y={0} stroke="grey" />
+          <XAxis
+            dataKey="date"
+            tickSize={10}
+            axisLine={false}
+            tickFormatter={formatDateTick}
+            // tick={CustomXAxisLabel as any}
+          />
+          <YAxis
+            dataKey={areaDataKey}
+            type="number"
+            padding={{ bottom: 60 }}
+            // domain={[-8, 20]}
+            axisLine={false}
+            unit="K"
+          />
           <defs>
             <linearGradient id="splitColor" x1="0" y1="0" x2="0" y2="1">
               <stop offset={off()} stopColor={'#feebed'} stopOpacity={1} />
@@ -144,16 +195,8 @@ const Chart: React.FC<ChartProps> = ({
             stroke="url(#splitColorStroke)"
             fill="url(#splitColor)"
           />
-          <Bar dataKey={barDataKey} barSize={4}>
-            {data.map((entry: any, index: any) => {
-              return (
-                <Cell
-                  key={`cell-${index}`}
-                  fill={entry.usageValue > 0 ? '#2ca02c' : '#d62728'}
-                />
-              );
-            })}
-          </Bar>
+          <Bar dataKey={barDataKey} barSize={4} fill="blue" />
+          <Bar dataKey={barDataKey2} barSize={4} fill="red" />
           {/* <Tooltip />
           <ReferenceLine y={1} x={5} stroke="blue" strokeDasharray="0.5 0.5" /> */}
         </ComposedChart>
