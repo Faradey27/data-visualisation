@@ -1,0 +1,10 @@
+@import '../../theme';
+
+.recharts-brush-texts {
+  display: none;
+}
+
+.recharts-brush-slide {
+  fill-opacity: 0.1;
+  fill: $primaryColor;
+}

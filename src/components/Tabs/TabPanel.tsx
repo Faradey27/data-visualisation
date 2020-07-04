@@ -2,8 +2,12 @@ import React, { memo } from 'react';
 
 import styles from './Tabs.module.scss';
 
-const TabPanel: React.FC<{}> = () => {
-  return <div className={styles.tabPanel}></div>;
+interface TabPanelProps {
+  children: React.ReactNode;
+}
+
+const TabPanel: React.FC<TabPanelProps> = ({ children }) => {
+  return <div className={styles.tabPanel}>{children}</div>;
 };
 
 export default memo(TabPanel);

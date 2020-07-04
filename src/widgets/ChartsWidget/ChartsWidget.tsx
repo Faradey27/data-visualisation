@@ -7,8 +7,11 @@ import {
   faWaveSquare,
 } from '@fortawesome/free-solid-svg-icons';
 
+import './Recharts.scss';
 import { Tab, Tabs } from '../../components/Tabs';
 import TabPanel from '../../components/Tabs/TabPanel';
+import theme from '../../theme.scss';
+import Chart from './components/Chart';
 
 const messages = defineMessage({
   avgResponseDelayTitle: {
@@ -29,6 +32,22 @@ const messages = defineMessage({
   },
 });
 
+const dataGenerator = (n: number) => {
+  const data = [];
+  for (let i = 0; i < n; i++) {
+    const value = Math.floor(Math.random() * 10 + 1);
+    data.push({
+      date: Date.now() + i * 1000 * 60 * 60,
+      value: Math.floor(Math.random() * 10 + 1),
+      usageValue: (value / 5) * (i % 2 ? -1 : 1),
+    });
+  }
+
+  return data;
+};
+
+const data = dataGenerator(100);
+
 enum TabId {
   avgResponseDelay = 'avgResponseDelay',
   lastQueueSize = 'lastQueueSize',
@@ -38,6 +57,8 @@ enum TabId {
 
 const ChartsWidget: React.FC<{}> = () => {
   const intl = useIntl();
+
+  console.log(theme);
 
   const [selectedTabId, setSelectedTabId] = useState<string>(
     TabId.lastQueueSize
@@ -75,7 +96,14 @@ const ChartsWidget: React.FC<{}> = () => {
           onClick={setSelectedTabId}
         />
       </Tabs>
-      <TabPanel />
+      <TabPanel>
+        <Chart
+          data={data}
+          brushDataKey="value"
+          areaDataKey="value"
+          barDataKey="usageValue"
+        />
+      </TabPanel>
     </div>
   );
 };

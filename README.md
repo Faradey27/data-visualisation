@@ -20,4 +20,7 @@ It's ready to be deployed
 `npm run deploy` <br>
 Deploys app to github pages
 
+`npm run prettier` <br>
+Runs prettier which will autofix codebase
+
 ## Task

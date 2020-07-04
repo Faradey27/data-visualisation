@@ -12,3 +12,9 @@ $borderColor: #dbdcdb;
 @function spacing($value) {
   @return $value * $space * 1px;
 }
+
+:export {
+  space: $space;
+  primaryColor: $primaryColor;
+  textColorPrimary: $textColorPrimary;
+}
