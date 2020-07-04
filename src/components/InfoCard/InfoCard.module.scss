@@ -1,6 +1,7 @@
 @import '../../theme.scss';
 
 .root {
+  position: relative;
   display: flex;
   height: spacing(7);
   padding-top: spacing(1);

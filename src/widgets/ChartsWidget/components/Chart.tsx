@@ -9,6 +9,7 @@ import {
   Line,
   ReferenceLine,
   ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
 } from 'recharts';
@@ -165,6 +166,8 @@ const Chart: React.FC<ChartProps> = ({
               );
             })}
           </Bar>
+          {/* <Tooltip />
+          <ReferenceLine y={1} x={5} stroke="blue" strokeDasharray="0.5 0.5" /> */}
         </ComposedChart>
       </ResponsiveContainer>
     </>

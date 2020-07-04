@@ -22,16 +22,19 @@ const cards = [
     id: 1,
     title: 'usage-service-prod-recird-inventory-usage-on-two-lines',
     subtitle: '125ms',
+    ratio: 0.8,
   },
   {
     id: 2,
     title: 'usage-service-prod-recird-inventory-usage',
     subtitle: '125ms',
+    ratio: 0.3,
   },
   {
     id: 3,
     title: 'usage-service-prod-recird-inventory-usage',
     subtitle: '125ms',
+    ratio: 0.2,
   },
 ];
 
@@ -55,6 +58,7 @@ const ResourcesWidget: React.FC<{}> = () => {
               variant={InfoCardVariant.resource}
               title={card.title}
               subtitle={card.subtitle}
+              ratio={card.ratio}
             />
           </div>
         ))}
