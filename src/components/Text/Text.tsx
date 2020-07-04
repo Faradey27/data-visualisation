@@ -23,6 +23,7 @@ interface TextProps {
   link?: boolean;
   href?: string;
   iconRight?: IconProp;
+  className?: string;
 }
 
 const Text: React.FC<TextProps> = ({
@@ -33,8 +34,9 @@ const Text: React.FC<TextProps> = ({
   size,
   iconRight,
   children,
+  className,
 }) => {
-  const className = clsx(styles.root, {
+  const classes = clsx(styles.root, className, {
     [styles.small]: size === TextSize.small,
     [styles.uppercase]: uppercase,
     [styles.primary]: color === TextColor.primary,
@@ -57,13 +59,13 @@ const Text: React.FC<TextProps> = ({
 
   if (link) {
     return (
-      <a href={href} className={className}>
+      <a href={href} className={classes}>
         {content}
       </a>
     );
   }
 
-  return <span className={className}>{content}</span>;
+  return <span className={classes}>{content}</span>;
 };
 
 export default memo(Text);

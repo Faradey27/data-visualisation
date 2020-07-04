@@ -6,10 +6,7 @@ import {
   Brush,
   Cell,
   ComposedChart,
-  Line,
-  ReferenceLine,
   ResponsiveContainer,
-  Tooltip,
   XAxis,
   YAxis,
 } from 'recharts';
@@ -68,21 +65,11 @@ const Chart: React.FC<ChartProps> = ({
   barDataKey,
 }) => {
   const off = () => {
-    const dataMax = Math.max(...data.map((i: any) => i.value));
-    const dataMin = Math.min(...data.map((i: any) => i.value));
-    console.log(dataMax, dataMin);
-    // if (dataMax <= 3) {
-    //   return 0;
-    // }
-    // if (dataMin >= 7) {
-    //   return 1;
-    // }
-
     return 0.1;
   };
   return (
     <>
-      <ResponsiveContainer width="100%" height={theme.space * 9}>
+      <ResponsiveContainer width="100%" height={theme.space * 10}>
         <ComposedChart
           data={data}
           margin={{
@@ -93,7 +80,7 @@ const Chart: React.FC<ChartProps> = ({
         >
           <Brush
             dataKey={brushDataKey}
-            height={theme.space * 9}
+            height={theme.space * 10}
             startIndex={2}
             endIndex={25}
             stroke="#f1f1f1"
@@ -101,6 +88,7 @@ const Chart: React.FC<ChartProps> = ({
             travellerWidth={3}
             traveller={renderBrushTraveller}
             alwaysShowText
+            padding={{ top: theme.space * 2 }}
           >
             <AreaChart>
               <Area
@@ -113,7 +101,7 @@ const Chart: React.FC<ChartProps> = ({
           </Brush>
         </ComposedChart>
       </ResponsiveContainer>
-      <ResponsiveContainer width="100%" height={theme.space * 31}>
+      <ResponsiveContainer width="100%" height={theme.space * 30}>
         <ComposedChart
           data={data}
           margin={{

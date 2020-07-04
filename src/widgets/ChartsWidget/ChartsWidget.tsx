@@ -11,7 +11,9 @@ import './Recharts.scss';
 import { Tab, Tabs } from '../../components/Tabs';
 import TabPanel from '../../components/Tabs/TabPanel';
 import theme from '../../theme.scss';
+import styles from './ChartsWidget.modules.scss';
 import Chart from './components/Chart';
+import ChartLegend from './components/ChartLegend';
 
 const messages = defineMessage({
   avgResponseDelayTitle: {
@@ -65,7 +67,7 @@ const ChartsWidget: React.FC<{}> = () => {
   );
 
   return (
-    <div>
+    <div className={styles.root}>
       <Tabs>
         <Tab
           isSelected={TabId.avgResponseDelay === selectedTabId}
@@ -97,6 +99,7 @@ const ChartsWidget: React.FC<{}> = () => {
         />
       </Tabs>
       <TabPanel>
+        <ChartLegend />
         <Chart
           data={data}
           brushDataKey="value"

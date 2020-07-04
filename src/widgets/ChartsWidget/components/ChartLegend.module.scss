@@ -1,0 +1,14 @@
+@import '../../../theme.scss';
+
+.root {
+  position: absolute;
+  z-index: 1;
+  top: spacing(1);
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.legendItem {
+  margin-left: spacing(1);
+}
