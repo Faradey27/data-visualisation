@@ -1,10 +1,10 @@
-import React, { memo } from 'react';
+import React, { memo, ReactNode } from 'react';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import styles from './DashboardTitle.module.scss';
 
-const DashboardTitle: React.FC<{}> = () => {
+const DashboardTitle: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <div className={styles.root}>
       <FontAwesomeIcon
@@ -12,7 +12,7 @@ const DashboardTitle: React.FC<{}> = () => {
         icon={faExclamationCircle}
         color="inherit"
       />
-      <h1 className={styles.title}>alerting-check-policy-conditions</h1>
+      <h1 className={styles.title}>{children}</h1>
     </div>
   );
 };

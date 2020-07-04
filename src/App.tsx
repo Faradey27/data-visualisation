@@ -16,17 +16,13 @@ const App: React.FC<{}> = () => {
       <main className={styles.content}>
         <div className={styles.space3} />
         <NavigationBar />
-        <AlertTitle />
+        <AlertTitle>alering-check-policy-conditions</AlertTitle>
         <div className={styles.space2} />
         <ChartsWidget />
         <div className={styles.space1} />
         <div className={styles.widgets}>
-          <div className={styles.spaceToRight}>
-            <ResourcesWidget />
-          </div>
-          <div className={styles.spaceToRight}>
-            <InsightsWidget />
-          </div>
+          <ResourcesWidget />
+          <InsightsWidget />
           <AlertsWidget />
         </div>
       </main>

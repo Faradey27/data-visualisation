@@ -4,11 +4,15 @@
   position: absolute;
   z-index: 1;
   top: spacing(1);
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto;
   justify-content: space-between;
+  padding: spacing(1);
   width: 100%;
 }
 
-.legendItem {
-  margin-left: spacing(1);
+.leftSide {
+  display: inline-grid;
+  grid-auto-flow: column;
+  column-gap: spacing(2);
 }

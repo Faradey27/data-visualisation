@@ -1,10 +1,10 @@
-import React, { memo } from 'react';
+import React, { Fragment, memo } from 'react';
 import { defineMessage, useIntl } from 'react-intl';
 import { faCog, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 
 import { useNavigationPath } from '../../hooks/useNavigationPath';
 import Text from '../Text';
-import { TextColor } from '../Text/Text';
+import { TextColor, TextSize } from '../Text/Text';
 import styles from './NavigationBar.module.scss';
 
 const messages = defineMessage({
@@ -27,36 +27,45 @@ const NavigationBar: React.FC<{}> = () => {
       <div>
         {items.map((item, index, arr) => {
           return (
-            <Text
-              key={item.id}
-              link
-              uppercase
-              color={TextColor.secondary}
-              href={item.href}
-            >
-              {item.label}
-              {arr.length - 1 !== index ? ' → ' : ''}
-            </Text>
+            <Fragment key={item.id}>
+              <Text
+                link
+                uppercase
+                size={TextSize.small}
+                color={TextColor.secondary}
+                href={item.href}
+              >
+                {item.label}
+              </Text>
+              {index < arr.length - 1 && (
+                <Text
+                  color={TextColor.secondary}
+                  className={styles.crumbSeparator}
+                >
+                  →
+                </Text>
+              )}
+            </Fragment>
           );
         })}
       </div>
       <div className={styles.links}>
-        <div className={styles.awsConsoleTextContainer}>
-          <Text
-            link
-            uppercase
-            color={TextColor.accent}
-            href="#awsconsole"
-            iconRight={faExternalLinkAlt}
-          >
-            {intl.formatMessage(messages.awsConsole)}
-          </Text>
-        </div>
+        <Text
+          link
+          uppercase
+          color={TextColor.accent}
+          size={TextSize.small}
+          href="#awsconsole"
+          iconRight={faExternalLinkAlt}
+        >
+          {intl.formatMessage(messages.awsConsole)}
+        </Text>
         <Text
           link
           uppercase
           color={TextColor.accent}
           href="#configuration"
+          size={TextSize.small}
           iconRight={faCog}
         >
           {intl.formatMessage(messages.configuration)}

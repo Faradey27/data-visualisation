@@ -2,12 +2,11 @@
 
 .root {
   position: relative;
-  display: flex;
-  height: spacing(7);
-  padding-top: spacing(1);
-  padding-bottom: spacing(1);
+  display: grid;
+  height: 56px;
+  padding: spacing(1) spacing(1) spacing(1) 0;
+  grid-template-columns: min-content 1fr;
   width: 100%;
-  background-color: $white;
 }
 
 .leftSide {
@@ -27,8 +26,8 @@
   padding-right: spacing(1);
 }
 
-.title {
+.titleContainer {
   display: flex;
   justify-content: space-between;
-  padding-right: spacing(1);
+  margin-bottom: spacing(0.5);
 }

@@ -1,0 +1,25 @@
+@import '../../theme.scss';
+
+.root {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  display: grid;
+  justify-content: space-between;
+  align-items: center;
+  grid-auto-flow: column;
+  width: 100%;
+  height: spacing(3);
+}
+
+.cardContainer {
+  margin-top: spacing(0.5);
+}
+
+.itemsContainer {
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: spacing(0.5);
+}
