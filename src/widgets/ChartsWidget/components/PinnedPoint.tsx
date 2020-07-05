@@ -20,19 +20,19 @@ const PinnedPoint: React.FC<PinnedPointProps> = ({ x, y }) => {
         width,
         height,
         left: x - width / 2,
-        top: y + theme.space * 5 + width / 2,
+        top: y + theme.space * 5 + height / 2,
       }}
     >
       <div
         className={styles.circle}
         style={{
           width: width * 0.75,
-          height: width * 0.75,
+          height: height * 0.75,
         }}
       >
         <Icon
           iconName={IconName.settings}
-          style={{ width: width * 0.5, height: width * 0.5 }}
+          style={{ width: width * 0.5, height: height * 0.5 }}
         />
       </div>
     </div>

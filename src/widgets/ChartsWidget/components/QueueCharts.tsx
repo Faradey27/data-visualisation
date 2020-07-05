@@ -1,5 +1,4 @@
 import React, { memo, useCallback, useMemo, useState } from 'react';
-import ReactDOM from 'react-dom';
 import {
   Area,
   Bar,
@@ -14,24 +13,22 @@ import {
 
 import { QueueSizeHistoryEntry } from '../../../api';
 import theme from '../../../theme.scss';
-import PinnedPoint from './PinnedPoint';
+import { DEFAULT_POINT_INDEX } from '../useChartData';
 import BrushChart from './QueueSizeBrushChart';
+import {
+  DRAG_POINT_LINE_PROPS,
+  formatDateTick,
+  gradientOffset,
+  PINNED_POINT_LINE_PROPS,
+  QUEUE_CHART_ROOT_ID,
+  QUEUE_CHART_SYNC_ID,
+} from './utils';
 import XAxisTick from './XAxisTick';
 import YAxisTick from './YAxisTick';
 
-interface QueueChartsProps {
-  data: QueueSizeHistoryEntry[];
-  brushDataKey: string;
-  areaDataKey: string;
-  barDataKey: string;
-}
-
-const formatDateTick = (tick: number) => {
-  return new Date(tick).getHours() + ':00';
-};
-
 // TODO in real life here should be smth smater
 const yAxisDomain = [0, (dataMax: number) => Math.min(8000, dataMax + 1000)];
+const yAxisPadding = { bottom: 60 };
 
 // we put "any" to overcome bug in typings
 // TODO properly overide types
@@ -39,60 +36,60 @@ const axisStyleProps: any = {
   stroke: theme.borderColor,
 };
 
-const yAxisPadding = { bottom: 60 };
-
-// we put "any" to overcome bug in typings
-// TODO properly overide types
-const PINNED_POINT_LINE_PROPS: any = {
-  label: (props: any) => {
-    const chartRootNode = document.getElementById(QUEUE_CHART_ROOT_ID);
-
-    if (!chartRootNode) {
-      return null;
-    }
-
-    return ReactDOM.createPortal(
-      <PinnedPoint x={props.viewBox.x} y={props.viewBox.y} />,
-      chartRootNode
-    );
-  },
-};
-
 const chartMargin = {
   top: theme.space * 2,
   left: -theme.space * 3,
 };
 
-const syncID = 'line-with-bar';
-const QUEUE_CHART_ROOT_ID = 'queue-chart-root';
-
-// TODO this data should come from server;
-const pinnedPointIndex = 120;
-
-const gradientOffset = (x: QueueSizeHistoryEntry[]) => {
-  const data = x.map((item) => ({ ...item, value: item.value - 5000 }));
-
-  const dataMax = Math.max(...data.map((i) => i.value));
-  const dataMin = Math.min(...data.map((i) => i.value));
-
-  if (dataMax <= 0) {
-    return 0;
-  }
-  if (dataMin >= 0) {
-    return 1;
-  }
-
-  return dataMax / (dataMax - dataMin);
-};
+interface QueueChartsProps {
+  pinnedPointIndex: number;
+  data: QueueSizeHistoryEntry[];
+  brushDataKey: string;
+  areaDataKey: string;
+  barDataKey: string;
+  selectedPointIndex?: number;
+  onChangeSelectedPointIndex: (index: number) => void;
+}
 
 const QueueCharts: React.FC<QueueChartsProps> = ({
+  pinnedPointIndex = 120,
+  selectedPointIndex,
   data,
   brushDataKey,
   areaDataKey,
   barDataKey,
+  onChangeSelectedPointIndex,
 }) => {
   const [startIndex, setStartIndex] = useState(110);
   const [endIndex, setendIndex] = useState(150);
+  const [isDragging, setDragState] = useState(false);
+
+  const handleStartDrag = useCallback(
+    (e) => {
+      setDragState(true);
+      if (e && e.activeTooltipIndex) {
+        onChangeSelectedPointIndex(e.activeTooltipIndex);
+      }
+    },
+    [onChangeSelectedPointIndex]
+  );
+
+  const handleStopDrag = useCallback(
+    (e) => {
+      setDragState(false);
+      onChangeSelectedPointIndex(DEFAULT_POINT_INDEX);
+    },
+    [onChangeSelectedPointIndex]
+  );
+
+  const handleDrag = useCallback(
+    (e) => {
+      if (isDragging && e && e.activeTooltipIndex) {
+        onChangeSelectedPointIndex(e.activeTooltipIndex);
+      }
+    },
+    [isDragging, onChangeSelectedPointIndex]
+  );
 
   const memoizedData = useMemo(() => data.slice(startIndex, endIndex), [
     data,
@@ -115,12 +112,19 @@ const QueueCharts: React.FC<QueueChartsProps> = ({
         endIndex={endIndex}
         dataKey={brushDataKey}
         areaDataKey={areaDataKey}
-        syncID={syncID}
+        syncID={QUEUE_CHART_SYNC_ID}
         onBrushWindowChange={handleBrushWindowChange}
       />
       <div id={QUEUE_CHART_ROOT_ID}>
         <ResponsiveContainer width="100%" height={theme.space * 30}>
-          <ComposedChart data={data} margin={chartMargin} syncId={syncID}>
+          <ComposedChart
+            data={data}
+            margin={chartMargin}
+            syncId={QUEUE_CHART_SYNC_ID}
+            onMouseDown={handleStartDrag}
+            onMouseMove={handleDrag}
+            onMouseUp={handleStopDrag}
+          >
             <Brush
               dataKey={brushDataKey}
               startIndex={startIndex}
@@ -136,6 +140,16 @@ const QueueCharts: React.FC<QueueChartsProps> = ({
                 stroke={theme.primaryColor}
                 strokeDasharray={'1, 1'}
                 {...PINNED_POINT_LINE_PROPS}
+              />
+            ) : null}
+            {isDragging &&
+            selectedPointIndex &&
+            memoizedData[selectedPointIndex] ? (
+              <ReferenceLine
+                className="pinnedPoint"
+                x={memoizedData[selectedPointIndex]?.timestamp}
+                stroke={theme.primaryColor}
+                {...DRAG_POINT_LINE_PROPS}
               />
             ) : null}
             <XAxis

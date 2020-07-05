@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useState } from 'react';
 import { defineMessage, useIntl } from 'react-intl';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import './Recharts.scss';
 import { IconName } from '../../components/Icon';
@@ -13,14 +13,11 @@ import {
   fetchPayloadSizeHistoryAction,
   fetchQueueSizeHistoryAction,
   fetchResponseDelayHistoryAction,
-  selectDeadLetterQueueHistory,
-  selectPayloadSizeHistory,
-  selectQueueSizeHistory,
-  selectResponseDelayHistory,
 } from '../../state/chart';
 import styles from './ChartsWidget.module.scss';
 import ChartLegend from './components/ChartLegend';
 import Chart from './components/QueueCharts';
+import { DEFAULT_POINT_INDEX, TabId, useChartData } from './useChartData';
 import { useChartDataRequestState } from './useChartDataRequestState';
 
 const messages = defineMessage({
@@ -42,31 +39,31 @@ const messages = defineMessage({
   },
 });
 
-enum TabId {
-  avgResponseDelay = 'avgResponseDelay',
-  lastQueueSize = 'lastQueueSize',
-  avgPayloadSize = 'avgPayloadSize',
-  deadLetterQueue = 'deadLetterQueue',
-}
-
 const ChartsWidget: React.FC<{}> = () => {
   const intl = useIntl();
+  const [selectedPointIndex, setSelectedPointIndex] = useState(
+    DEFAULT_POINT_INDEX
+  );
+  const [selectedTabId, setSelectedTabId] = useState<string>(
+    TabId.lastQueueSize
+  );
 
   // this custome hook will return to us general request state based on queue size,
   // response delay, payload size, dead letter queue requests
   // so we will assume that success means that all requests succed and failure that at least one request failed
   const chartsDataRequestState = useChartDataRequestState();
-
-  const queueSizeHistory = useSelector(selectQueueSizeHistory);
-  const responseDelayHistory = useSelector(selectResponseDelayHistory);
-  const payloadSizeHistory = useSelector(selectPayloadSizeHistory);
-  const deadLetterQueueHistory = useSelector(selectDeadLetterQueueHistory);
+  const {
+    queueSizeHistory,
+    responseDelayHistory,
+    payloadSizeHistory,
+    deadLetterQueueHistory,
+    avgResponseDelay,
+    lastQueueSize,
+    payloadSize,
+    deadLetterQueue,
+  } = useChartData(selectedPointIndex, selectedTabId as TabId);
 
   const dispatch = useDispatch();
-
-  const [selectedTabId, setSelectedTabId] = useState<string>(
-    TabId.lastQueueSize
-  );
 
   useEffect(() => {
     dispatch(fetchQueueSizeHistoryAction());
@@ -74,11 +71,6 @@ const ChartsWidget: React.FC<{}> = () => {
     dispatch(fetchPayloadSizeHistoryAction());
     dispatch(fetchDeadLetterQueueHistoryAction());
   }, [dispatch]);
-
-  const avgResponseDelay = (responseDelayHistory[1]?.value || 0) + 'ms';
-  const lastQueueSize = String(queueSizeHistory[1]?.value || 0);
-  const payloadSize = String(payloadSizeHistory[1]?.value || 0) + 'kb';
-  const deadLetterQueue = String(deadLetterQueueHistory[1]?.value || 0);
 
   return (
     <div className={styles.root}>
@@ -148,10 +140,13 @@ const ChartsWidget: React.FC<{}> = () => {
         <TabPanel>
           <ChartLegend />
           <Chart
+            selectedPointIndex={selectedPointIndex}
+            pinnedPointIndex={120}
             data={queueSizeHistory}
             brushDataKey="value"
             areaDataKey="value"
             barDataKey="pending"
+            onChangeSelectedPointIndex={setSelectedPointIndex}
           />
         </TabPanel>
       </RequestStateVisualize>
