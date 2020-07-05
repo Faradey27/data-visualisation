@@ -69,6 +69,22 @@ const QUEUE_CHART_ROOT_ID = 'queue-chart-root';
 // TODO this data should come from server;
 const pinnedPointIndex = 120;
 
+const gradientOffset = (x: QueueSizeHistoryEntry[]) => {
+  const data = x.map((item) => ({ ...item, value: item.value - 5000 }));
+
+  const dataMax = Math.max(...data.map((i) => i.value));
+  const dataMin = Math.min(...data.map((i) => i.value));
+
+  if (dataMax <= 0) {
+    return 0;
+  }
+  if (dataMin >= 0) {
+    return 1;
+  }
+
+  return dataMax / (dataMax - dataMin);
+};
+
 const QueueCharts: React.FC<QueueChartsProps> = ({
   data,
   brushDataKey,
@@ -84,9 +100,7 @@ const QueueCharts: React.FC<QueueChartsProps> = ({
     endIndex,
   ]);
 
-  const off = () => {
-    return 0.1;
-  };
+  const off = useMemo(() => gradientOffset(memoizedData), [memoizedData]);
 
   const handleBrushWindowChange = useCallback(({ startIndex, endIndex }) => {
     setStartIndex(startIndex);
@@ -159,13 +173,13 @@ const QueueCharts: React.FC<QueueChartsProps> = ({
             </Bar>
             <defs>
               <linearGradient id="splitColor" x1="0" y1="0" x2="0" y2="1">
-                <stop offset={off()} stopColor={'#feebed'} stopOpacity={1} />
-                <stop offset={off()} stopColor="#f8f8f8" stopOpacity={1} />
+                <stop offset={off} stopColor={'#feebed'} stopOpacity={1} />
+                <stop offset={off} stopColor="#f9f7fd" stopOpacity={1} />
               </linearGradient>
               <linearGradient id="splitColorStroke" x1="0" y1="0" x2="0" y2="1">
-                <stop offset={off()} stopColor={'red'} stopOpacity={1} />
+                <stop offset={off} stopColor={theme.red} stopOpacity={1} />
                 <stop
-                  offset={off()}
+                  offset={off}
                   stopColor={theme.primaryColor}
                   stopOpacity={1}
                 />
