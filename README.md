@@ -25,8 +25,31 @@ Runs prettier which will autofix codebase
 
 ## Task
 
-## Dependencies 
+To create SPA that renders one of the dashbird pages.
 
-### Icons 
+![example](https://i.ibb.co/vcRH4JH/download-1.png)
+
+**Main tasks:**
+
+- [x] Set up a page layout and title
+- [x] Add tabs that contain the latest metric information and nonactive ones have sparkline.
+- [x] Add main chart with 3 different data series (negative bars, positive bars and line)
+- [x] Show chart legend and metrics under it. Main metric needs to be changing on the tab
+
+**Bonus tasks:**
+
+- [x] Use Redux to manage state
+- [x] Add zoom to chart
+- [x] Add datetime picker (only partially workable)
+- [x] Use remote API
+
+**Extra:**
+
+- [x] Loading states
+- [x] Ability to switch tabs and see different charts
+
+## Dependencies
+
+### Icons
 
 Icons made by [Those Icons](https://www.flaticon.com/authors/those-icons) from [Flaticon](https://www.flaticon.com/)

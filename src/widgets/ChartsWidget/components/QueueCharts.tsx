@@ -116,9 +116,16 @@ const QueueCharts: React.FC<QueueChartsProps> = ({
     [onChangeEndIndex, onChangeStartIndex]
   );
 
+  const currentPendingValue =
+    selectedPointIndex &&
+    isDragging &&
+    memoizedData?.[selectedPointIndex]?.pending !== undefined
+      ? memoizedData?.[selectedPointIndex]?.pending
+      : undefined;
+
   return (
     <>
-      <ChartLegend />
+      <ChartLegend pendingValue={currentPendingValue} />
       <BrushChart
         data={data}
         startIndex={startIndex}

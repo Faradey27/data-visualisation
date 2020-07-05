@@ -29,7 +29,7 @@ const messages = defineMessage({
   },
 });
 
-const ChartLegend: React.FC<{}> = () => {
+const ChartLegend: React.FC<{ pendingValue?: number }> = ({ pendingValue }) => {
   const intl = useIntl();
 
   return (
@@ -37,9 +37,19 @@ const ChartLegend: React.FC<{}> = () => {
       <div className={styles.leftSide}>
         <span className={clsx(styles.legendItem, styles.pendingIncreased)}>
           {intl.formatMessage(messages.pendingIncreased)}
+          {pendingValue !== undefined ? (
+            <span className={styles.pendingValue}>
+              +{Math.abs(pendingValue)}
+            </span>
+          ) : null}
         </span>
         <span className={clsx(styles.legendItem, styles.pendingDecreased)}>
           {intl.formatMessage(messages.pendingResolved)}
+          {pendingValue !== undefined ? (
+            <span className={styles.pendingValue}>
+              -{Math.abs(pendingValue)}
+            </span>
+          ) : null}
         </span>
         <span className={styles.legendItem}>
           <Icon iconName={IconName.alert} className={styles.icon} />
