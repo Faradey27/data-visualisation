@@ -3,6 +3,9 @@
 .content {
   padding-left: spacing(2);
   padding-right: spacing(2);
+  max-width: 1440px;
+  min-width: 768px;
+  margin: 0 auto;
 }
 
 .space3 {
