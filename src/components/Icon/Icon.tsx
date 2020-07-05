@@ -34,7 +34,7 @@ export enum IconName {
   calendar = 'calendar',
 }
 
-interface IconProps {
+interface IconProps extends React.SVGProps<SVGSVGElement> {
   iconName: IconName;
   className?: string;
 }
@@ -58,9 +58,11 @@ const IconsMap: {
   calendar: CalendarIcon,
 };
 
-const Icon: React.FC<IconProps> = ({ iconName, className }) => {
+const Icon: React.FC<IconProps> = ({ iconName, className, ...svgProps }) => {
   const SelectedIcon = IconsMap[iconName];
-  return <SelectedIcon className={clsx(styles.root, className)} />;
+  return (
+    <SelectedIcon className={clsx(styles.root, className)} {...svgProps} />
+  );
 };
 
 export default Icon;
