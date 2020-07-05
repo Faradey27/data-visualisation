@@ -4,6 +4,7 @@ import {
   AreaChart,
   Bar,
   Brush,
+  Cell,
   ComposedChart,
   ReferenceLine,
   ResponsiveContainer,
@@ -12,47 +13,13 @@ import {
 } from 'recharts';
 
 import theme from '../../../theme.scss';
-
-interface BrushTravellerParams {
-  x: number;
-  y: number;
-  height: number;
-}
-
-const renderBrushTraveller = ({
-  x,
-  y,
-  height,
-}: BrushTravellerParams): SVGElement => {
-  // border radius of traveller
-  const radius = 2;
-  // we want travellerHeight to be 1/3 of BrushChart height + we need to extract radius from top and bottom
-  const travellerHeight = height / 3 - radius * 2;
-  // we want traveller to be 3px width, so travellerWidth + radius from top + radius from bottom will give us what we want
-  const travellerWidth = 1;
-
-  // we doing "as unknown as SVGElement" to properly set types, as library has bug their
-  return ((
-    <path
-      d={`M${x},${y + travellerHeight + radius * 2}
-        h${travellerWidth}
-        q${radius},0 ${radius},${radius}
-        v${travellerHeight}
-        q0,${radius} -${radius},${radius}
-        h-${travellerWidth}
-        z
-      `}
-      fill={theme.primaryColor}
-    />
-  ) as unknown) as SVGElement;
-};
+import BrushChart from './BrushChart';
 
 interface ChartProps {
   data: any;
   brushDataKey: string;
   areaDataKey: string;
   barDataKey: string;
-  barDataKey2: string;
 }
 
 const formatDateTick = (tick: number) => {
@@ -73,75 +40,52 @@ const formatDateTick = (tick: number) => {
 //   );
 // }
 
+// we put "any" to overcome bug in typings
+// TODO properly overide types
+const axisStyleProps: any = {
+  stroke: theme.borderColor,
+  tick: { fontSize: 12 },
+};
+
+const chartMargin = {
+  top: theme.space * 2,
+  left: -theme.space * 2,
+};
+
 const Chart: React.FC<ChartProps> = ({
   data,
   brushDataKey,
   areaDataKey,
   barDataKey,
-  barDataKey2,
 }) => {
   const off = () => {
     return 0.1;
   };
   // top = 0.25, body = 0.48, bottom = 0.27
+  const startIndex = 110;
+  const endIndex = 151;
+
   return (
     <>
-      <ResponsiveContainer width="100%" height={theme.space * 10}>
-        <ComposedChart
-          data={data}
-          margin={{
-            right: -1,
-            left: -1,
-          }}
-          syncId="anyId"
-        >
-          <Brush
-            dataKey={brushDataKey}
-            height={theme.space * 10}
-            startIndex={50}
-            endIndex={90}
-            stroke="#f1f1f1"
-            y={-1}
-            travellerWidth={3}
-            traveller={renderBrushTraveller}
-            alwaysShowText
-            padding={{ top: theme.space * 2 }}
-          >
-            <AreaChart>
-              <Area
-                type="monotone"
-                dataKey={areaDataKey}
-                stroke="#f1f1f1"
-                fill="#f8f8f8"
-              />
-            </AreaChart>
-          </Brush>
-        </ComposedChart>
-      </ResponsiveContainer>
+      <BrushChart
+        data={data}
+        startIndex={startIndex}
+        endIndex={endIndex}
+        dataKey={brushDataKey}
+        areaDataKey={areaDataKey}
+      />
       <ResponsiveContainer width="100%" height={theme.space * 30}>
-        <ComposedChart
-          data={data}
-          margin={{
-            top: theme.space * 2,
-            left: -theme.space * 2,
-          }}
-          syncId="anyId"
-        >
+        <ComposedChart data={data} margin={chartMargin} syncId="anyId">
           <Brush
             dataKey={brushDataKey}
-            startIndex={50}
-            endIndex={90}
-            stroke="#f1f1f1"
-            y={-1}
+            startIndex={startIndex}
+            endIndex={endIndex}
             width={0}
             height={0.00001}
-            travellerWidth={3}
-            traveller={renderBrushTraveller}
-            alwaysShowText
           />
           <ReferenceLine y={0} stroke="grey" />
           <XAxis
-            {...{ stroke: theme.borderColor }}
+            {...axisStyleProps}
             tick={{ fontSize: 12 }}
             dataKey="date"
             tickSize={56}
@@ -150,12 +94,11 @@ const Chart: React.FC<ChartProps> = ({
             // tick={CustomXAxisLabel as any}
           />
           <YAxis
-            {...{ stroke: theme.borderColor }}
+            {...axisStyleProps}
             dataKey={areaDataKey}
             type="number"
-            tick={{ fontSize: 12 }}
             padding={{ bottom: 60 }}
-            // domain={[-8, 20]}
+            domain={[0, 8000]}
             axisLine={false}
             unit="K"
           />
@@ -179,8 +122,17 @@ const Chart: React.FC<ChartProps> = ({
             stroke="url(#splitColorStroke)"
             fill="url(#splitColor)"
           />
-          <Bar dataKey={barDataKey} barSize={4} fill="blue" />
-          <Bar dataKey={barDataKey2} barSize={4} fill="red" />
+          <Bar dataKey={barDataKey} barSize={4} fill="blue">
+            {data.map((item: any) => {
+              // console.log(item);
+              return (
+                <Cell
+                  key={item.date}
+                  fill={item.pending <= 0 ? 'blue' : 'red'}
+                />
+              );
+            })}
+          </Bar>
           {/* <Tooltip />
           <ReferenceLine y={1} x={5} stroke="blue" strokeDasharray="0.5 0.5" /> */}
         </ComposedChart>

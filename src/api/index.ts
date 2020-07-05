@@ -2,15 +2,20 @@ import { homepage } from '../../package.json';
 import {
   AlertHistoryEntry,
   InsightHistoryEntry,
+  PayloadSizeHistoryEntry,
   QueueSizeHistoryEntry,
   ResourceHistoryEntry,
+  ResponseDelayHistoryEntry,
 } from './types';
 
 export * from './types';
 
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+const emulateServer = (items: any[]) => ({ total: items.length, items });
+
 export default {
   async request(method: string, { path }: { path: string }) {
-    const url = `${homepage}${path}`;
+    const url = `${process.env.REACT_APP_API_URL || homepage}${path}`;
 
     const params = {
       method,
@@ -33,28 +38,66 @@ export default {
     return this.request('GET', { path });
   },
 
-  fetchQueueSizeHistory(): Promise<{
+  async fetchQueueSizeHistory(): Promise<{
     total: number;
     items: QueueSizeHistoryEntry[];
   }> {
-    return this.get('/history/queueSize');
+    await delay(1000);
+    const res = await this.get('/history/queueSize.json');
+    return emulateServer(res);
   },
 
-  fetchResourcesHistory(): Promise<{
+  async fetchResponseDelayHistory(): Promise<{
+    total: number;
+    items: ResponseDelayHistoryEntry[];
+  }> {
+    await delay(1000);
+    const res = await this.get('/history/responseDelay.json');
+    return emulateServer(res);
+  },
+
+  async fetchPayloadSizeHistory(): Promise<{
+    total: number;
+    items: PayloadSizeHistoryEntry[];
+  }> {
+    await delay(1000);
+    const res = await this.get('/history/payloadSize.json');
+    return emulateServer(res);
+  },
+
+  async fetchDeadLetterQueueHistory(): Promise<{
+    total: number;
+    items: PayloadSizeHistoryEntry[];
+  }> {
+    await delay(1000);
+    const res = await this.get('/history/deadLetterQueue.json');
+    return emulateServer(res);
+  },
+
+  async fetchResourcesHistory(): Promise<{
     total: number;
     items: ResourceHistoryEntry[];
   }> {
-    return this.get('/history/resources');
+    await delay(1000);
+    const res = await this.get('/history/resources.json');
+    return emulateServer(res);
   },
 
-  fetchAlertsHistory(): Promise<{ total: number; items: AlertHistoryEntry[] }> {
-    return this.get('/history/alerts');
+  async fetchAlertsHistory(): Promise<{
+    total: number;
+    items: AlertHistoryEntry[];
+  }> {
+    await delay(1000);
+    const res = await this.get('/history/alerts.json');
+    return emulateServer(res);
   },
 
-  fetchInsightsHistory(): Promise<{
+  async fetchInsightsHistory(): Promise<{
     total: number;
     items: InsightHistoryEntry[];
   }> {
-    return this.get('/history/insights');
+    await delay(1000);
+    const res = await this.get('/history/insights.json');
+    return emulateServer(res);
   },
 };

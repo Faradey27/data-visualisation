@@ -1,37 +1,42 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import HighlightStack, {
   HighlightStackItem,
 } from '../../components/HighlightStack';
 import { IconName } from '../../components/Icon';
-
-const cards = [
-  {
-    id: 1,
-    title: 'Incident #41288',
-    subtitle: 'duration (in ms) was above 1 on avarage during the last minute',
-    date: new Date(),
-  },
-  {
-    id: 2,
-    title: 'Incident #41289',
-    subtitle: 'duration (in ms) was above 1 on avarage during the last minute',
-    date: new Date(),
-  },
-];
+import RequestStateVisualize from '../../components/RequestStateVisualize';
+import {
+  fetchAlertsDataAction,
+  selectAlertsHistory,
+  selectAlertsHistoryRequestState,
+} from '../../state/widgets';
 
 const AlertsWidget: React.FC<{}> = () => {
+  const dispatch = useDispatch();
+  const alertsHistory = useSelector(selectAlertsHistory);
+  const alertsHistoryRequestState = useSelector(
+    selectAlertsHistoryRequestState
+  );
+
+  useEffect(() => {
+    dispatch(fetchAlertsDataAction());
+  }, [dispatch]);
+
   return (
-    <HighlightStack title="Alerts" actionTitle="Latest">
-      {cards.map((card) => (
-        <HighlightStackItem
-          title={card.title}
-          description={card.subtitle}
-          iconName={IconName.alert}
-          date={card.date}
-        />
-      ))}
-    </HighlightStack>
+    <RequestStateVisualize requestState={alertsHistoryRequestState}>
+      <HighlightStack title="Alerts" actionTitle="Latest">
+        {alertsHistory.map((card) => (
+          <HighlightStackItem
+            key={card.id}
+            title={card.name}
+            description={card.description}
+            iconName={IconName.alert}
+            timestamp={card.timestamp}
+          />
+        ))}
+      </HighlightStack>
+    </RequestStateVisualize>
   );
 };
 

@@ -42,6 +42,7 @@ export const widgetsReducer = (state = initialState, action: WidgetsAction) => {
     case getType(fetchResourcesDataAsyncAction.success): {
       return {
         ...state,
+        resourceHistory: action.payload,
         resourceHistoryRequestState: RequestState.success,
       };
     }
@@ -61,6 +62,7 @@ export const widgetsReducer = (state = initialState, action: WidgetsAction) => {
     case getType(fetchInsightsDataAsyncAction.success): {
       return {
         ...state,
+        insightsHistory: action.payload,
         insightsHistoryRequestState: RequestState.success,
       };
     }
@@ -80,6 +82,7 @@ export const widgetsReducer = (state = initialState, action: WidgetsAction) => {
     case getType(fetchAlertsDataAsyncAction.success): {
       return {
         ...state,
+        alertsHistory: action.payload,
         alertsHistoryRequestState: RequestState.success,
       };
     }

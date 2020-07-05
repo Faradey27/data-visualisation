@@ -1,15 +1,27 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { defineMessage, useIntl } from 'react-intl';
+import { useDispatch, useSelector } from 'react-redux';
 
 import './Recharts.scss';
 import { IconName } from '../../components/Icon';
+import RequestStateVisualize from '../../components/RequestStateVisualize';
 import SparkLineCard from '../../components/SparkLineCard/SparkLineCard';
 import { Tab, Tabs } from '../../components/Tabs';
 import TabPanel from '../../components/Tabs/TabPanel';
-import theme from '../../theme.scss';
-import styles from './ChartsWidget.modules.scss';
+import {
+  fetchDeadLetterQueueHistoryAction,
+  fetchPayloadSizeHistoryAction,
+  fetchQueueSizeHistoryAction,
+  fetchResponseDelayHistoryAction,
+  selectDeadLetterQueueHistory,
+  selectPayloadSizeHistory,
+  selectQueueSizeHistory,
+  selectResponseDelayHistory,
+} from '../../state/chart';
+import styles from './ChartsWidget.module.scss';
 import Chart from './components/Chart';
 import ChartLegend from './components/ChartLegend';
+import { useChartDataRequestState } from './useChartDataRequestState';
 
 const messages = defineMessage({
   avgResponseDelayTitle: {
@@ -30,46 +42,6 @@ const messages = defineMessage({
   },
 });
 
-const dataGenerator = (n: number) => {
-  const data = [];
-  for (let i = 0; i < n; i++) {
-    const value0 = Math.floor(Math.random() * 10 + 1);
-    const value1 = Math.floor(Math.random() * 10 + 1);
-    const value2 = -Math.floor(Math.random() * 10 + 1);
-    data.push({
-      date: Date.now() + i * 1000 * 60 * 60,
-      size: value1 - value2,
-      pendingIncreased: value1 / 5,
-      pendingResolved: value2 / 5,
-    });
-  }
-
-  return data;
-};
-
-const data = dataGenerator(100);
-
-const avgResponseDelayHistoryData: any[] = [];
-
-const hour = 1000 * 60 * 60;
-
-for (let i = 0; i < 100; i++) {
-  let value = 0;
-  if (i < 30) {
-    value = Math.floor(Math.random() * 10 + 1) * i * 12;
-  } else if (value >= 30 && value < 70) {
-    value = Math.floor(Math.random() * 10 + 1) * i * 4;
-  } else {
-    value = Math.floor(Math.random() * 10 + 1) * i * 2;
-  }
-
-  console.log(value, i);
-  avgResponseDelayHistoryData.push({
-    date: Date.now() - hour * i,
-    avgResponseDelay: value,
-  });
-}
-
 enum TabId {
   avgResponseDelay = 'avgResponseDelay',
   lastQueueSize = 'lastQueueSize',
@@ -80,86 +52,109 @@ enum TabId {
 const ChartsWidget: React.FC<{}> = () => {
   const intl = useIntl();
 
-  console.log(theme);
+  // this custome hook will return to us general request state based on queue size,
+  // response delay, payload size, dead letter queue requests
+  // so we will assume that success means that all requests succed and failure that at least one request failed
+  const chartsDataRequestState = useChartDataRequestState();
+
+  const queueSizeHistory = useSelector(selectQueueSizeHistory);
+  const responseDelayHistory = useSelector(selectResponseDelayHistory);
+  const payloadSizeHistory = useSelector(selectPayloadSizeHistory);
+  const deadLetterQueueHistory = useSelector(selectDeadLetterQueueHistory);
+
+  const dispatch = useDispatch();
 
   const [selectedTabId, setSelectedTabId] = useState<string>(
     TabId.lastQueueSize
   );
 
+  useEffect(() => {
+    dispatch(fetchQueueSizeHistoryAction());
+    dispatch(fetchResponseDelayHistoryAction());
+    dispatch(fetchPayloadSizeHistoryAction());
+    dispatch(fetchDeadLetterQueueHistoryAction());
+  }, [dispatch]);
+
+  const avgResponseDelay = (responseDelayHistory[1]?.value || 0) + 'ms';
+  const lastQueueSize = String(queueSizeHistory[1]?.value || 0);
+  const payloadSize = String(payloadSizeHistory[1]?.value || 0) + 'kb';
+  const deadLetterQueue = String(deadLetterQueueHistory[1]?.value || 0);
+
   return (
     <div className={styles.root}>
-      <Tabs>
-        <Tab
-          isSelected={TabId.avgResponseDelay === selectedTabId}
-          id={TabId.avgResponseDelay}
-          title={intl.formatMessage(messages.avgResponseDelayTitle)}
-          onClick={setSelectedTabId}
-        >
-          <SparkLineCard
+      <RequestStateVisualize requestState={chartsDataRequestState}>
+        <Tabs>
+          <Tab
             isSelected={TabId.avgResponseDelay === selectedTabId}
-            currentValue={'23ms'}
-            data={avgResponseDelayHistoryData}
-            dataKey="avgResponseDelay"
+            id={TabId.avgResponseDelay}
             title={intl.formatMessage(messages.avgResponseDelayTitle)}
-            iconName={IconName.clock}
-          />
-        </Tab>
-        <Tab
-          isSelected={TabId.lastQueueSize === selectedTabId}
-          id={TabId.lastQueueSize}
-          title={intl.formatMessage(messages.lastQueueSizeTitle)}
-          onClick={setSelectedTabId}
-        >
-          <SparkLineCard
+            onClick={setSelectedTabId}
+          >
+            <SparkLineCard
+              isSelected={TabId.avgResponseDelay === selectedTabId}
+              currentValue={avgResponseDelay}
+              data={responseDelayHistory}
+              dataKey="value"
+              title={intl.formatMessage(messages.avgResponseDelayTitle)}
+              iconName={IconName.clock}
+            />
+          </Tab>
+          <Tab
             isSelected={TabId.lastQueueSize === selectedTabId}
-            currentValue={'32'}
-            data={data}
-            dataKey="size"
+            id={TabId.lastQueueSize}
             title={intl.formatMessage(messages.lastQueueSizeTitle)}
-            iconName={IconName.sigma}
-          />
-        </Tab>
-        <Tab
-          isSelected={TabId.avgPayloadSize === selectedTabId}
-          id={TabId.avgPayloadSize}
-          title={intl.formatMessage(messages.avgPayloadSizeTitle)}
-          onClick={setSelectedTabId}
-        >
-          <SparkLineCard
+            onClick={setSelectedTabId}
+          >
+            <SparkLineCard
+              isSelected={TabId.lastQueueSize === selectedTabId}
+              currentValue={lastQueueSize}
+              data={queueSizeHistory}
+              dataKey="value"
+              title={intl.formatMessage(messages.lastQueueSizeTitle)}
+              iconName={IconName.sigma}
+            />
+          </Tab>
+          <Tab
             isSelected={TabId.avgPayloadSize === selectedTabId}
-            currentValue={'1.35kb'}
-            data={data}
-            dataKey="size"
+            id={TabId.avgPayloadSize}
             title={intl.formatMessage(messages.avgPayloadSizeTitle)}
-            iconName={IconName.database}
-          />
-        </Tab>
-        <Tab
-          isSelected={TabId.deadLetterQueue === selectedTabId}
-          id={TabId.deadLetterQueue}
-          title={intl.formatMessage(messages.deadLetterQueueTitle)}
-          onClick={setSelectedTabId}
-        >
-          <SparkLineCard
+            onClick={setSelectedTabId}
+          >
+            <SparkLineCard
+              isSelected={TabId.avgPayloadSize === selectedTabId}
+              currentValue={payloadSize}
+              data={payloadSizeHistory}
+              dataKey="value"
+              title={intl.formatMessage(messages.avgPayloadSizeTitle)}
+              iconName={IconName.database}
+            />
+          </Tab>
+          <Tab
             isSelected={TabId.deadLetterQueue === selectedTabId}
-            currentValue={'0'}
-            data={[{ size: 0 }, { size: 0 }]}
-            dataKey="size"
+            id={TabId.deadLetterQueue}
             title={intl.formatMessage(messages.deadLetterQueueTitle)}
-            iconName={IconName.document}
+            onClick={setSelectedTabId}
+          >
+            <SparkLineCard
+              isSelected={TabId.deadLetterQueue === selectedTabId}
+              currentValue={deadLetterQueue}
+              data={deadLetterQueueHistory}
+              dataKey="value"
+              title={intl.formatMessage(messages.deadLetterQueueTitle)}
+              iconName={IconName.document}
+            />
+          </Tab>
+        </Tabs>
+        <TabPanel>
+          <ChartLegend />
+          <Chart
+            data={queueSizeHistory}
+            brushDataKey="value"
+            areaDataKey="value"
+            barDataKey="pending"
           />
-        </Tab>
-      </Tabs>
-      <TabPanel>
-        <ChartLegend />
-        <Chart
-          data={data}
-          brushDataKey="size"
-          areaDataKey="size"
-          barDataKey="pendingIncreased"
-          barDataKey2="pendingResolved"
-        />
-      </TabPanel>
+        </TabPanel>
+      </RequestStateVisualize>
     </div>
   );
 };

@@ -10,7 +10,7 @@ interface HighlightStackItemProps {
   title: string;
   description: string;
   iconName: IconName;
-  date?: Date;
+  timestamp?: number;
   percentage?: number;
 }
 
@@ -18,7 +18,7 @@ const HighlightStackItem: React.FC<HighlightStackItemProps> = ({
   title,
   description,
   iconName,
-  date,
+  timestamp,
   percentage = 0,
 }) => {
   return (
@@ -36,9 +36,9 @@ const HighlightStackItem: React.FC<HighlightStackItemProps> = ({
       <div className={styles.rightSide}>
         <div className={styles.titleContainer}>
           <span className={styles.title}>{title}</span>
-          {date && (
+          {timestamp && (
             <span className={clsx(styles.title, styles.secondaryText)}>
-              {formatDistanceToNow(date)} ago
+              {formatDistanceToNow(new Date(timestamp))} ago
             </span>
           )}
         </div>

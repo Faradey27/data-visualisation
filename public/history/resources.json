@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "usage-service-prod-recird-inventory-usage-on-two-lines",
+    "value": "125ms",
+    "percentage": 0.8
+  },
+  {
+    "id": 2,
+    "name": "usage-service-prod-recird-inventory-usage",
+    "value": "125ms",
+    "percentage": 0.3
+  },
+  {
+    "id": 3,
+    "name": "usage-service-prod-recird-inventory-usage",
+    "value": "125ms",
+    "percentage": 0.2
+  }
+]

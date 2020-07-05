@@ -1,43 +1,42 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import HighlightStack, {
   HighlightStackItem,
 } from '../../components/HighlightStack';
 import { IconName } from '../../components/Icon';
-
-const cards = [
-  {
-    id: 1,
-    title: 'Queue is growing',
-    subtitle: 'duration (in ms) was above 1 on avarage during the last minute',
-    date: new Date(),
-  },
-  {
-    id: 2,
-    title: 'Queue is growing',
-    subtitle: 'duration (in ms) was above 1 on avarage during the last minute',
-    date: new Date(),
-  },
-  {
-    id: 3,
-    title: 'Queue is growing',
-    subtitle: 'duration (in ms) was above 1 on avarage during the last minute',
-    date: new Date(),
-  },
-];
+import RequestStateVisualize from '../../components/RequestStateVisualize';
+import {
+  fetchInsightsDataAction,
+  selectInsightsHistory,
+  selectInsightsHistoryRequestState,
+} from '../../state/widgets';
 
 const InsightsWidget: React.FC<{}> = () => {
+  const dispatch = useDispatch();
+  const insightsHistory = useSelector(selectInsightsHistory);
+  const insightsHistoryRequestState = useSelector(
+    selectInsightsHistoryRequestState
+  );
+
+  useEffect(() => {
+    dispatch(fetchInsightsDataAction());
+  }, [dispatch]);
+
   return (
-    <HighlightStack title="Insights" actionTitle="Latest">
-      {cards.map((card) => (
-        <HighlightStackItem
-          title={card.title}
-          description={card.subtitle}
-          date={card.date}
-          iconName={IconName.idea}
-        />
-      ))}
-    </HighlightStack>
+    <RequestStateVisualize requestState={insightsHistoryRequestState}>
+      <HighlightStack title="Insights" actionTitle="Latest">
+        {insightsHistory.map((card) => (
+          <HighlightStackItem
+            key={card.id}
+            title={card.name}
+            description={card.description}
+            timestamp={card.timestamp}
+            iconName={IconName.idea}
+          />
+        ))}
+      </HighlightStack>
+    </RequestStateVisualize>
   );
 };
 

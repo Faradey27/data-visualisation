@@ -6,16 +6,30 @@ export enum RequestState {
 }
 
 export interface QueueSizeHistoryEntry {
-  id: string;
-  size: number;
-  pendingIncreased: number;
-  pendingResolved: number;
+  date: number;
+  value: number;
+  pending: number;
+}
+
+export interface ResponseDelayHistoryEntry {
+  date: number;
+  value: number;
+}
+
+export interface PayloadSizeHistoryEntry {
+  date: number;
+  value: number;
+}
+
+export interface DeadLetterQueueHistoryEntry {
+  date: number;
+  value: number;
 }
 
 export interface ResourceHistoryEntry {
   id: string;
   name: string;
-  timeUsed: string;
+  value: string;
   percentage: number;
 }
 

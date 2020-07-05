@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "name": "Incident #41288",
+    "description": "duration (in ms) was above 1 on avarage during the last minute",
+    "timestamp": 1593953985522
+  },
+  {
+    "id": 2,
+    "name": "Incident #41289",
+    "description": "duration (in ms) was above 1 on avarage during the last minute",
+    "timestamp": 1593952985522
+  }
+]

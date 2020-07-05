@@ -1,51 +1,42 @@
 import React, { memo, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import HighlightStack, {
   HighlightStackItem,
 } from '../../components/HighlightStack';
 import { IconName } from '../../components/Icon';
-import { fetchResourcesDataAction } from '../../state/widgets';
-
-const cards = [
-  {
-    id: 1,
-    title: 'usage-service-prod-recird-inventory-usage-on-two-lines',
-    subtitle: '125ms',
-    percentage: 0.8,
-  },
-  {
-    id: 2,
-    title: 'usage-service-prod-recird-inventory-usage',
-    subtitle: '125ms',
-    percentage: 0.3,
-  },
-  {
-    id: 3,
-    title: 'usage-service-prod-recird-inventory-usage',
-    subtitle: '125ms',
-    percentage: 0.2,
-  },
-];
+import RequestStateVisualize from '../../components/RequestStateVisualize';
+import {
+  fetchResourcesDataAction,
+  selectResourceHistory,
+  selectResourceHistoryRequestState,
+} from '../../state/widgets';
 
 const ResourcesWidget: React.FC<{}> = () => {
   const dispatch = useDispatch();
+  const resourceHistory = useSelector(selectResourceHistory);
+  const resourceHistoryRequestState = useSelector(
+    selectResourceHistoryRequestState
+  );
 
   useEffect(() => {
     dispatch(fetchResourcesDataAction());
   }, [dispatch]);
 
   return (
-    <HighlightStack title="Resources" actionTitle="Execution time">
-      {cards.map((card) => (
-        <HighlightStackItem
-          title={card.title}
-          description={card.subtitle}
-          percentage={card.percentage}
-          iconName={IconName.greek}
-        />
-      ))}
-    </HighlightStack>
+    <RequestStateVisualize requestState={resourceHistoryRequestState}>
+      <HighlightStack title="Resources" actionTitle="Execution time">
+        {resourceHistory.map((card) => (
+          <HighlightStackItem
+            key={card.id}
+            title={card.name}
+            description={card.value}
+            percentage={card.percentage}
+            iconName={IconName.greek}
+          />
+        ))}
+      </HighlightStack>
+    </RequestStateVisualize>
   );
 };
 

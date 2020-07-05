@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://faradey27.github.io/dashbird-test-task",
   "scripts": {
-    "start": "react-scripts start",
+    "start": "REACT_APP_API_URL=http://localhost:3000 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "prettier": "prettier --write 'src/**/*.{ts,tsx}'",
