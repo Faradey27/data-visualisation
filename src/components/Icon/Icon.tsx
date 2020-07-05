@@ -2,6 +2,7 @@ import React, { FunctionComponent, SVGProps } from 'react';
 import clsx from 'clsx';
 
 import { ReactComponent as AlertIcon } from './assets/alert.svg';
+import { ReactComponent as CalendarIcon } from './assets/calendar.svg';
 import { ReactComponent as CaretDownIcon } from './assets/caret-down.svg';
 import { ReactComponent as ClockIcon } from './assets/clock.svg';
 import { ReactComponent as DatabaseIcon } from './assets/database.svg';
@@ -30,6 +31,7 @@ export enum IconName {
   caretDown = 'caretDown',
   user = 'user',
   downArrow = 'downArrow',
+  calendar = 'calendar',
 }
 
 interface IconProps {
@@ -53,6 +55,7 @@ const IconsMap: {
   caretDown: CaretDownIcon,
   user: UserIcon,
   downArrow: DownArrowIcon,
+  calendar: CalendarIcon,
 };
 
 const Icon: React.FC<IconProps> = ({ iconName, className }) => {

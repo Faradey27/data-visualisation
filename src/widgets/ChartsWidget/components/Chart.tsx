@@ -98,8 +98,8 @@ const Chart: React.FC<ChartProps> = ({
           <Brush
             dataKey={brushDataKey}
             height={theme.space * 10}
-            startIndex={2}
-            endIndex={25}
+            startIndex={50}
+            endIndex={90}
             stroke="#f1f1f1"
             y={-1}
             travellerWidth={3}
@@ -129,8 +129,8 @@ const Chart: React.FC<ChartProps> = ({
         >
           <Brush
             dataKey={brushDataKey}
-            startIndex={2}
-            endIndex={25}
+            startIndex={50}
+            endIndex={90}
             stroke="#f1f1f1"
             y={-1}
             width={0}
