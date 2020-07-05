@@ -24,3 +24,9 @@ Deploys app to github pages
 Runs prettier which will autofix codebase
 
 ## Task
+
+## Dependencies 
+
+### Icons 
+
+Icons made by [Those Icons](https://www.flaticon.com/authors/those-icons) from [Flaticon](https://www.flaticon.com/)

@@ -10,11 +10,19 @@ interface TabProps {
   id: string;
   title: string;
   icon: IconProp;
+  children?: React.ReactNode;
   isSelected?: boolean;
   onClick: (id: string) => void;
 }
 
-const Tab: React.FC<TabProps> = ({ id, title, icon, isSelected, onClick }) => {
+const Tab: React.FC<TabProps> = ({
+  id,
+  title,
+  icon,
+  children,
+  isSelected,
+  onClick,
+}) => {
   const handleClick = useCallback(() => {
     onClick(id);
   }, [id, onClick]);
@@ -24,18 +32,7 @@ const Tab: React.FC<TabProps> = ({ id, title, icon, isSelected, onClick }) => {
       className={clsx(styles.tab, { [styles.selectedTab]: isSelected })}
       onClick={handleClick}
     >
-      <div className={styles.tabContent}>
-        <div className={styles.tabContentHeader}>
-          <Text uppercase color={TextColor.secondary} size={TextSize.small}>
-            {title}
-          </Text>
-          <FontAwesomeIcon
-            className={styles.userIcon}
-            icon={icon}
-            color="inherit"
-          />
-        </div>
-      </div>
+      {children}
     </div>
   );
 };

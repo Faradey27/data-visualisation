@@ -4,6 +4,8 @@ $textColorPrimary: #202225;
 $textColorSecondary: #989898;
 $textColorAccent: #4c44c5;
 
+$textSecondaryColor: #989898;
+
 $primaryColor: #4c44c5;
 $backgroundColor: #f4f4f4;
 $white: #fff;
@@ -16,6 +18,7 @@ $borderColor: #dbdcdb;
 :export {
   space: $space;
   white: $white;
+  borderColor: $borderColor;
   primaryColor: $primaryColor;
   textColorPrimary: $textColorPrimary;
 }
