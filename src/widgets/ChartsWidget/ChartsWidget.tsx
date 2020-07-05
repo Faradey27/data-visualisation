@@ -19,8 +19,8 @@ import {
   selectResponseDelayHistory,
 } from '../../state/chart';
 import styles from './ChartsWidget.module.scss';
-import Chart from './components/Chart';
 import ChartLegend from './components/ChartLegend';
+import Chart from './components/QueueCharts';
 import { useChartDataRequestState } from './useChartDataRequestState';
 
 const messages = defineMessage({

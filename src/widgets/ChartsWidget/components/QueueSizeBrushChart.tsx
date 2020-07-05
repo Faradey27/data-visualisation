@@ -28,7 +28,7 @@ const renderBrushTraveller = ({
 }: BrushTravellerParams): SVGElement => {
   // border radius of traveller
   const radius = 2;
-  // we want travellerHeight to be 1/3 of BrushChart height + we need to extract radius from top and bottom
+  // we want travellerHeight to be 1/3 of QueueSizeBarBrushChart height + we need to extract radius from top and bottom
   const travellerHeight = height / 3 - radius * 2;
   // we want traveller to be 3px width, so travellerWidth + radius from top + radius from bottom will give us what we want
   const travellerWidth = 1;
@@ -49,12 +49,20 @@ const renderBrushTraveller = ({
   ) as unknown) as SVGElement;
 };
 
-interface BrushChartProps {
+interface QueueSizeBarBrushChartProps {
   startIndex: number;
   endIndex: number;
   data: any[];
   dataKey: string;
   areaDataKey: string;
+  syncID?: string;
+  onBrushWindowChange: ({
+    startIndex,
+    endIndex,
+  }: {
+    startIndex: number;
+    endIndex: number;
+  }) => void;
 }
 
 // negative margin to hide stroke at left and right
@@ -63,16 +71,18 @@ const chartMargin = {
   left: -1,
 };
 
-const BrushChart: React.FC<BrushChartProps> = ({
+const QueueSizeBarBrushChart: React.FC<QueueSizeBarBrushChartProps> = ({
   startIndex,
   endIndex,
   data,
   dataKey,
   areaDataKey,
+  syncID,
+  onBrushWindowChange,
 }) => {
   return (
     <ResponsiveContainer width="100%" height={theme.space * 10}>
-      <ComposedChart data={data} margin={chartMargin} syncId="anyId">
+      <ComposedChart data={data} margin={chartMargin} syncId={syncID}>
         <Brush
           dataKey={dataKey}
           height={theme.space * 10}
@@ -84,6 +94,7 @@ const BrushChart: React.FC<BrushChartProps> = ({
           traveller={renderBrushTraveller}
           alwaysShowText
           padding={{ top: theme.space * 2 }}
+          onChange={onBrushWindowChange as any}
         >
           <AreaChart>
             <defs>
@@ -113,4 +124,4 @@ const BrushChart: React.FC<BrushChartProps> = ({
   );
 };
 
-export default memo(BrushChart);
+export default memo(QueueSizeBarBrushChart);
