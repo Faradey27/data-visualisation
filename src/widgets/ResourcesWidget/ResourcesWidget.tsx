@@ -11,6 +11,7 @@ import {
   selectResourceHistory,
   selectResourceHistoryRequestState,
 } from '../../state/widgets';
+import styles from './ResourcesWidget.module.scss';
 
 const ResourcesWidget: React.FC<{}> = () => {
   const dispatch = useDispatch();
@@ -24,7 +25,10 @@ const ResourcesWidget: React.FC<{}> = () => {
   }, [dispatch]);
 
   return (
-    <RequestStateVisualize requestState={resourceHistoryRequestState}>
+    <RequestStateVisualize
+      requestState={resourceHistoryRequestState}
+      className={styles.root}
+    >
       <HighlightStack title="Resources" actionTitle="Execution time">
         {resourceHistory.map((card) => (
           <HighlightStackItem

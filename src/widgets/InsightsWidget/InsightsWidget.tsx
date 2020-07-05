@@ -11,6 +11,7 @@ import {
   selectInsightsHistory,
   selectInsightsHistoryRequestState,
 } from '../../state/widgets';
+import styles from './InsightsWidget.module.scss';
 
 const InsightsWidget: React.FC<{}> = () => {
   const dispatch = useDispatch();
@@ -24,7 +25,10 @@ const InsightsWidget: React.FC<{}> = () => {
   }, [dispatch]);
 
   return (
-    <RequestStateVisualize requestState={insightsHistoryRequestState}>
+    <RequestStateVisualize
+      requestState={insightsHistoryRequestState}
+      className={styles.root}
+    >
       <HighlightStack title="Insights" actionTitle="Latest">
         {insightsHistory.map((card) => (
           <HighlightStackItem

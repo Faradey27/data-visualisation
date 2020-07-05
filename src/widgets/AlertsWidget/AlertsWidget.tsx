@@ -11,6 +11,7 @@ import {
   selectAlertsHistory,
   selectAlertsHistoryRequestState,
 } from '../../state/widgets';
+import styles from './AlertsWidget.module.scss';
 
 const AlertsWidget: React.FC<{}> = () => {
   const dispatch = useDispatch();
@@ -24,7 +25,10 @@ const AlertsWidget: React.FC<{}> = () => {
   }, [dispatch]);
 
   return (
-    <RequestStateVisualize requestState={alertsHistoryRequestState}>
+    <RequestStateVisualize
+      requestState={alertsHistoryRequestState}
+      className={styles.root}
+    >
       <HighlightStack title="Alerts" actionTitle="Latest">
         {alertsHistory.map((card) => (
           <HighlightStackItem
