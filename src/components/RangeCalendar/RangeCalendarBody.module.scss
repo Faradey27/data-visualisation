@@ -1,0 +1,79 @@
+@import '../../theme';
+
+.root {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  width: spacing(40);
+  height: spacing(40);
+  padding: spacing(2);
+  background-color: $white;
+  border-left: 1px solid $borderColor;
+  cursor: auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.leftSide {
+  display: grid;
+  grid-auto-flow: column;
+  grid-column-gap: spacing(2);
+}
+
+.actionContainer {
+  display: inline-flex;
+  align-items: center;
+}
+
+.action {
+  font-size: 12px;
+  color: $primaryColor;
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.iconDownArrow {
+  fill: $primaryColor;
+  width: 12px;
+  height: 12px;
+  margin-left: spacing(0.5);
+}
+
+.applyButton {
+  background-color: $white;
+  border: 1px solid $primaryColor;
+  text-transform: uppercase;
+  color: $primaryColor;
+  padding: spacing(0.5) spacing(1);
+  cursor: pointer;
+}
+
+.title {
+  font-size: 12px;
+  color: $textSecondaryColor;
+  text-transform: uppercase;
+  &:not(:nth-child(1)) {
+    margin-top: spacing(1);
+  }
+}
+
+.commonlyUsed {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: spacing(2);
+
+  .action {
+    margin-top: spacing(1);
+  }
+}
+
+.recentlyUsed {
+  .action {
+    margin-top: spacing(1);
+  }
+}

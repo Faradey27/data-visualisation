@@ -6,3 +6,10 @@
   height: spacing(49);
   user-select: none;
 }
+
+.rangeCalendar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+}

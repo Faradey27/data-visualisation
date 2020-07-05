@@ -1,10 +1,8 @@
 import React, { memo, useCallback, useMemo, useState } from 'react';
 import {
   Area,
-  Bar,
+  AreaChart,
   Brush,
-  Cell,
-  ComposedChart,
   ReferenceLine,
   ResponsiveContainer,
   XAxis,
@@ -14,12 +12,10 @@ import {
 import { QueueSizeHistoryEntry } from '../../../api';
 import theme from '../../../theme.scss';
 import { DEFAULT_POINT_INDEX } from '../useChartData';
-import ChartLegend from './ChartLegend';
 import BrushChart from './QueueSizeBrushChart';
 import {
   DRAG_POINT_LINE_PROPS,
   formatDateTick,
-  gradientOffset,
   PINNED_POINT_LINE_PROPS,
   QUEUE_CHART_ROOT_ID,
   QUEUE_CHART_SYNC_ID,
@@ -44,27 +40,25 @@ const chartMargin = {
   left: -theme.space * 3,
 };
 
-interface QueueChartsProps {
+interface GeneralAreaChartProps {
   startIndex: number;
   endIndex: number;
   pinnedPointIndex: number;
-  data: QueueSizeHistoryEntry[];
+  data: { timestamp: number; value: number }[];
   brushDataKey: string;
   areaDataKey: string;
-  barDataKey: string;
   selectedPointIndex?: number;
   onChangeEndIndex: (index: number) => void;
   onChangeStartIndex: (index: number) => void;
   onChangeSelectedPointIndex: (index: number) => void;
 }
 
-const QueueCharts: React.FC<QueueChartsProps> = ({
+const GeneralAreaChart: React.FC<GeneralAreaChartProps> = ({
   pinnedPointIndex = 120,
   selectedPointIndex,
   data,
   brushDataKey,
   areaDataKey,
-  barDataKey,
   startIndex,
   endIndex,
   onChangeEndIndex,
@@ -106,8 +100,6 @@ const QueueCharts: React.FC<QueueChartsProps> = ({
     startIndex,
   ]);
 
-  const off = useMemo(() => gradientOffset(memoizedData), [memoizedData]);
-
   const handleBrushWindowChange = useCallback(
     ({ startIndex, endIndex }) => {
       onChangeEndIndex(endIndex);
@@ -118,7 +110,6 @@ const QueueCharts: React.FC<QueueChartsProps> = ({
 
   return (
     <>
-      <ChartLegend />
       <BrushChart
         data={data}
         startIndex={startIndex}
@@ -130,7 +121,7 @@ const QueueCharts: React.FC<QueueChartsProps> = ({
       />
       <div id={QUEUE_CHART_ROOT_ID}>
         <ResponsiveContainer width="100%" height={theme.space * 30}>
-          <ComposedChart
+          <AreaChart
             data={data}
             margin={chartMargin}
             syncId={QUEUE_CHART_SYNC_ID}
@@ -178,45 +169,36 @@ const QueueCharts: React.FC<QueueChartsProps> = ({
               dataKey={areaDataKey}
               type="number"
               padding={yAxisPadding}
-              domain={yAxisDomain}
               axisLine={false}
               tick={YAxisTick}
             />
+            <defs>
+              <linearGradient
+                id="general-area-chart"
+                x1="0"
+                y1="0"
+                x2="0"
+                y2="1"
+              >
+                <stop
+                  offset="0%"
+                  stopColor={theme.primaryColor}
+                  stopOpacity={0.8}
+                />
+                <stop offset="95%" stopColor="#faf8fe" stopOpacity={0} />
+              </linearGradient>
+            </defs>
             <Area
               type="monotone"
               dataKey={areaDataKey}
-              stroke="url(#splitColorStroke)"
-              fill="url(#splitColor)"
+              stroke={theme.borderColor}
+              fill={`url(#general-area-chart)`}
             />
-            <Bar dataKey={barDataKey} barSize={4}>
-              {memoizedData.map((entry, index) => {
-                return (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={entry.pending > 0 ? theme.red : theme.primaryColor}
-                  />
-                );
-              })}
-            </Bar>
-            <defs>
-              <linearGradient id="splitColor" x1="0" y1="0" x2="0" y2="1">
-                <stop offset={off} stopColor={'#feebed'} stopOpacity={1} />
-                <stop offset={off} stopColor="#f9f7fd" stopOpacity={1} />
-              </linearGradient>
-              <linearGradient id="splitColorStroke" x1="0" y1="0" x2="0" y2="1">
-                <stop offset={off} stopColor={theme.red} stopOpacity={1} />
-                <stop
-                  offset={off}
-                  stopColor={theme.primaryColor}
-                  stopOpacity={1}
-                />
-              </linearGradient>
-            </defs>
-          </ComposedChart>
+          </AreaChart>
         </ResponsiveContainer>
       </div>
     </>
   );
 };
 
-export default memo(QueueCharts);
+export default memo(GeneralAreaChart);

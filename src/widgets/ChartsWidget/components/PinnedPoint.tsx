@@ -22,6 +22,7 @@ const PinnedPoint: React.FC<PinnedPointProps> = ({ x, y }) => {
         left: x - width / 2,
         top: y + theme.space * 5 + height / 2,
       }}
+      onMouseDown={(e) => e.stopPropagation()}
     >
       <div
         className={styles.circle}

@@ -5,7 +5,6 @@ import styles from './Tabs.module.scss';
 
 interface TabProps {
   id: string;
-  title: string;
   children?: React.ReactNode;
   isSelected?: boolean;
   onClick: (id: string) => void;

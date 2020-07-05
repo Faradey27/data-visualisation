@@ -54,9 +54,6 @@ const ChartLegend: React.FC<{}> = () => {
           {intl.formatMessage(messages.configChange)}
         </span>
       </div>
-      <div className={styles.rightSide}>
-        <RangeCalendar />
-      </div>
     </div>
   );
 };

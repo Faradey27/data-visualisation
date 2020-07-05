@@ -21,6 +21,7 @@ interface BrushTravellerParams {
   height: number;
 }
 
+// TODO rotate them properly
 const renderBrushTraveller = ({
   x,
   y,
