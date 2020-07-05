@@ -1,9 +1,9 @@
 import React, { memo } from 'react';
-import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 
 import HighlightStack, {
   HighlightStackItem,
 } from '../../components/HighlightStack';
+import { IconName } from '../../components/Icon';
 
 const cards = [
   {
@@ -22,12 +22,12 @@ const cards = [
 
 const AlertsWidget: React.FC<{}> = () => {
   return (
-    <HighlightStack title="Alerts" left="Latest">
+    <HighlightStack title="Alerts" actionTitle="Latest">
       {cards.map((card) => (
         <HighlightStackItem
           title={card.title}
           description={card.subtitle}
-          iconType={faExclamationTriangle}
+          iconName={IconName.alert}
           date={card.date}
         />
       ))}

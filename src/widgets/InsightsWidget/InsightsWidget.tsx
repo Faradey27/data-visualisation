@@ -1,9 +1,9 @@
 import React, { memo } from 'react';
-import { faLightbulb } from '@fortawesome/free-solid-svg-icons';
 
 import HighlightStack, {
   HighlightStackItem,
 } from '../../components/HighlightStack';
+import { IconName } from '../../components/Icon';
 
 const cards = [
   {
@@ -28,13 +28,13 @@ const cards = [
 
 const InsightsWidget: React.FC<{}> = () => {
   return (
-    <HighlightStack title="Insights" left="Latest">
+    <HighlightStack title="Insights" actionTitle="Latest">
       {cards.map((card) => (
         <HighlightStackItem
           title={card.title}
           description={card.subtitle}
           date={card.date}
-          iconType={faLightbulb}
+          iconName={IconName.idea}
         />
       ))}
     </HighlightStack>

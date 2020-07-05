@@ -4,9 +4,6 @@ import {
   AreaChart,
   Bar,
   Brush,
-  CartesianAxis,
-  CartesianGrid,
-  Cell,
   ComposedChart,
   ReferenceLine,
   ResponsiveContainer,
@@ -60,24 +57,6 @@ interface ChartProps {
 
 const formatDateTick = (tick: number) => {
   return new Date(tick).getHours() + ':00';
-};
-
-const AnotherLine = (props: any) => {
-  const {
-    viewBox: { x, y },
-    xoffset,
-    yheight,
-  } = props;
-  // console.log("ANOTHER LINE",props)
-  return (
-    <line
-      x1={x + xoffset}
-      x2={x + xoffset}
-      y1={y - yheight / 2}
-      y2={y + yheight / 2}
-      {...props}
-    />
-  );
 };
 
 // function CustomXAxisLabel(props: any) {
@@ -144,7 +123,7 @@ const Chart: React.FC<ChartProps> = ({
           data={data}
           margin={{
             top: theme.space * 2,
-            left: theme.space * 1,
+            left: -theme.space * 2,
           }}
           syncId="anyId"
         >

@@ -1,33 +1,31 @@
 import React, { memo, ReactNode } from 'react';
-import { faSortDown } from '@fortawesome/free-solid-svg-icons';
+import clsx from 'clsx';
 
-import Text, { TextColor, TextSize } from '../../components/Text';
+import Icon, { IconName } from '../Icon';
 import styles from './HighlightStack.module.scss';
 
 interface HighlightStackProps {
   title: string;
-  left: ReactNode;
+  actionTitle: ReactNode;
   children: ReactNode;
 }
 
 const HighlightStack: React.FC<HighlightStackProps> = ({
   title,
-  left,
+  actionTitle,
   children,
 }) => {
   return (
     <div className={styles.root}>
-      <div className={styles.title}>
-        <Text uppercase size={TextSize.small} color={TextColor.secondary}>
-          {title}
-        </Text>
-        <Text
-          iconRight={faSortDown}
-          size={TextSize.small}
-          color={TextColor.secondary}
-        >
-          {left}
-        </Text>
+      <div className={styles.header}>
+        <span className={styles.title}>{title}</span>
+        <a href="#todo" className={clsx(styles.title, styles.actionText)}>
+          {actionTitle}
+          <Icon
+            iconName={IconName.caretDown}
+            className={styles.actionTextIcon}
+          />
+        </a>
       </div>
       <div className={styles.itemsContainer}>{children}</div>
     </div>

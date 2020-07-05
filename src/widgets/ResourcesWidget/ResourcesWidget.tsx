@@ -1,10 +1,10 @@
 import React, { memo, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { faTable } from '@fortawesome/free-solid-svg-icons';
 
 import HighlightStack, {
   HighlightStackItem,
 } from '../../components/HighlightStack';
+import { IconName } from '../../components/Icon';
 import { fetchResourcesDataAction } from '../../state/widgets';
 
 const cards = [
@@ -36,13 +36,13 @@ const ResourcesWidget: React.FC<{}> = () => {
   }, [dispatch]);
 
   return (
-    <HighlightStack title="Resources" left="Execution time">
+    <HighlightStack title="Resources" actionTitle="Execution time">
       {cards.map((card) => (
         <HighlightStackItem
           title={card.title}
           description={card.subtitle}
           percentage={card.percentage}
-          iconType={faTable}
+          iconName={IconName.greek}
         />
       ))}
     </HighlightStack>

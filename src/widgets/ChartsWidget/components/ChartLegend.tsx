@@ -1,9 +1,7 @@
 import React, { memo } from 'react';
 import { defineMessage, useIntl } from 'react-intl';
-import { faSortDown } from '@fortawesome/free-solid-svg-icons';
 
 import RangeCalendar from '../../../components/RangeCalendar';
-import Text, { TextColor, TextSize } from '../../../components/Text';
 import styles from './ChartLegend.module.scss';
 
 const messages = defineMessage({
@@ -35,41 +33,21 @@ const ChartLegend: React.FC<{}> = () => {
   return (
     <div className={styles.root}>
       <div className={styles.leftSide}>
-        <Text
-          className={styles.legendItem}
-          size={TextSize.small}
-          color={TextColor.secondary}
-        >
+        <span className={styles.legendItem}>
           {intl.formatMessage(messages.pendingIncreased)}
-        </Text>
-        <Text
-          className={styles.legendItem}
-          size={TextSize.small}
-          color={TextColor.secondary}
-        >
+        </span>
+        <span className={styles.legendItem}>
           {intl.formatMessage(messages.pendingResolved)}
-        </Text>
-        <Text
-          className={styles.legendItem}
-          size={TextSize.small}
-          color={TextColor.accent}
-        >
+        </span>
+        <span className={styles.legendItem}>
           {intl.formatMessage(messages.alerts)}
-        </Text>
-        <Text
-          className={styles.legendItem}
-          size={TextSize.small}
-          color={TextColor.accent}
-        >
+        </span>
+        <span className={styles.legendItem}>
           {intl.formatMessage(messages.insights)}
-        </Text>
-        <Text
-          className={styles.legendItem}
-          size={TextSize.small}
-          color={TextColor.accent}
-        >
+        </span>
+        <span className={styles.legendItem}>
           {intl.formatMessage(messages.configChange)}
-        </Text>
+        </span>
       </div>
       <div className={styles.rightSide}>
         <RangeCalendar />

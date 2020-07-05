@@ -1,19 +1,11 @@
 import React, { memo, useState } from 'react';
 import { defineMessage, useIntl } from 'react-intl';
-import {
-  faClock,
-  faDatabase,
-  faFile,
-  faWaveSquare,
-} from '@fortawesome/free-solid-svg-icons';
-import { Line, LineChart, ResponsiveContainer } from 'recharts';
 
 import './Recharts.scss';
 import { IconName } from '../../components/Icon';
 import SparkLineCard from '../../components/SparkLineCard/SparkLineCard';
 import { Tab, Tabs } from '../../components/Tabs';
 import TabPanel from '../../components/Tabs/TabPanel';
-import Text, { TextColor } from '../../components/Text';
 import theme from '../../theme.scss';
 import styles from './ChartsWidget.modules.scss';
 import Chart from './components/Chart';
@@ -101,7 +93,6 @@ const ChartsWidget: React.FC<{}> = () => {
           isSelected={TabId.avgResponseDelay === selectedTabId}
           id={TabId.avgResponseDelay}
           title={intl.formatMessage(messages.avgResponseDelayTitle)}
-          icon={faClock}
           onClick={setSelectedTabId}
         >
           <SparkLineCard
@@ -117,7 +108,6 @@ const ChartsWidget: React.FC<{}> = () => {
           isSelected={TabId.lastQueueSize === selectedTabId}
           id={TabId.lastQueueSize}
           title={intl.formatMessage(messages.lastQueueSizeTitle)}
-          icon={faWaveSquare}
           onClick={setSelectedTabId}
         >
           <SparkLineCard
@@ -133,7 +123,6 @@ const ChartsWidget: React.FC<{}> = () => {
           isSelected={TabId.avgPayloadSize === selectedTabId}
           id={TabId.avgPayloadSize}
           title={intl.formatMessage(messages.avgPayloadSizeTitle)}
-          icon={faDatabase}
           onClick={setSelectedTabId}
         >
           <SparkLineCard
@@ -149,7 +138,6 @@ const ChartsWidget: React.FC<{}> = () => {
           isSelected={TabId.deadLetterQueue === selectedTabId}
           id={TabId.deadLetterQueue}
           title={intl.formatMessage(messages.deadLetterQueueTitle)}
-          icon={faFile}
           onClick={setSelectedTabId}
         >
           <SparkLineCard

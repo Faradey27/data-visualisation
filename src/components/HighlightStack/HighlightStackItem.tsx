@@ -1,16 +1,15 @@
 import React, { memo } from 'react';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import clsx from 'clsx';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 
 import theme from '../../theme.scss';
-import Text, { TextColor, TextSize } from '../Text';
+import Icon, { IconName } from '../Icon';
 import styles from './HighlightStackItem.module.scss';
 
 interface HighlightStackItemProps {
   title: string;
   description: string;
-  iconType: IconProp;
+  iconName: IconName;
   date?: Date;
   percentage?: number;
 }
@@ -18,7 +17,7 @@ interface HighlightStackItemProps {
 const HighlightStackItem: React.FC<HighlightStackItemProps> = ({
   title,
   description,
-  iconType,
+  iconName,
   date,
   percentage = 0,
 }) => {
@@ -32,25 +31,20 @@ const HighlightStackItem: React.FC<HighlightStackItemProps> = ({
       }}
     >
       <div className={styles.leftSide}>
-        <FontAwesomeIcon icon={iconType} />
+        <Icon iconName={iconName} />
       </div>
       <div className={styles.rightSide}>
         <div className={styles.titleContainer}>
-          <Text size={TextSize.small}>{title}</Text>
+          <span className={styles.title}>{title}</span>
           {date && (
-            <Text
-              size={TextSize.small}
-              color={TextColor.secondary}
-              className={styles.date}
-            >
+            <span className={clsx(styles.title, styles.secondaryText)}>
               {formatDistanceToNow(date)} ago
-            </Text>
+            </span>
           )}
         </div>
-
-        <Text size={TextSize.small} color={TextColor.secondary}>
+        <span className={clsx(styles.title, styles.secondaryText)}>
           {description}
-        </Text>
+        </span>
       </div>
     </div>
   );

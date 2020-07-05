@@ -1,22 +1,20 @@
 import React, { memo } from 'react';
-import { faChevronDown, faUserCircle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import Text from '../Text';
+import Icon, { IconName } from '../Icon';
 import styles from './HeaderBar.module.scss';
 
 const HeaderBar: React.FC<{}> = () => {
   return (
     <header className={styles.root}>
       <div className={styles.rightSideContent}>
-        <Text uppercase iconRight={faChevronDown}>
+        <a href="#todo" className={styles.userName}>
           dashbird.io
-        </Text>
-        <FontAwesomeIcon
-          className={styles.userIcon}
-          icon={faUserCircle}
-          color="inherit"
-        />
+          <Icon
+            iconName={IconName.downArrow}
+            className={styles.downArrowIcon}
+          />
+        </a>
+        <Icon iconName={IconName.user} className={styles.userIcon} />
       </div>
     </header>
   );

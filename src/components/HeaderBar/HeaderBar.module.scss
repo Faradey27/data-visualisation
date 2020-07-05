@@ -17,6 +17,24 @@
   color: rgba(255, 255, 255, 0.45);
 }
 
+.userName {
+  display: inline-flex;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.downArrowIcon {
+  fill: rgba(255, 255, 255, 0.45);
+  width: 10px;
+  height: 10px;
+  margin-left: spacing(1);
+}
+
 .userIcon {
-  margin-left: spacing(2);
+  margin-left: spacing(1);
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
 }
