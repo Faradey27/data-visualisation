@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "821863e03b2230707e14b68c25e1a1fc",
+    "revision": "f5d50d03cd57a464061cdf35d2c3975c",
     "url": "/dashbird-test-task/index.html"
   },
   {
