@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "009a14b50db2c3d012846787acee53af",
+    "revision": "821863e03b2230707e14b68c25e1a1fc",
     "url": "/dashbird-test-task/index.html"
   },
   {
-    "revision": "45d35e6fd2f6d3792669",
-    "url": "/dashbird-test-task/static/css/main.df77e7cf.chunk.css"
+    "revision": "05188565cdd4064ef53a",
+    "url": "/dashbird-test-task/static/css/main.37e9d223.chunk.css"
   },
   {
-    "revision": "f8481c085980b96e2313",
-    "url": "/dashbird-test-task/static/js/2.103bdadf.chunk.js"
+    "revision": "c16a5ac996fa8b073817",
+    "url": "/dashbird-test-task/static/js/2.8b1a4b47.chunk.js"
   },
   {
     "revision": "fa288db3288cc53458685adbb5e026b4",
-    "url": "/dashbird-test-task/static/js/2.103bdadf.chunk.js.LICENSE.txt"
+    "url": "/dashbird-test-task/static/js/2.8b1a4b47.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "45d35e6fd2f6d3792669",
-    "url": "/dashbird-test-task/static/js/main.5648d51b.chunk.js"
+    "revision": "05188565cdd4064ef53a",
+    "url": "/dashbird-test-task/static/js/main.398150fc.chunk.js"
   },
   {
     "revision": "e9937745917bd6643bb4",
