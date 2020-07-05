@@ -8,3 +8,13 @@
   fill-opacity: 0.1;
   fill: $primaryColor;
 }
+
+.recharts-xAxis {
+  transform: translate(0, -60px);
+}
+
+.xAxis {
+  .recharts-cartesian-axis-tick-value {
+    transform: translate(0, 4px);
+  }
+}

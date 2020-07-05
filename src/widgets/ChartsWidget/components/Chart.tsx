@@ -104,6 +104,7 @@ const Chart: React.FC<ChartProps> = ({
   const off = () => {
     return 0.1;
   };
+  // top = 0.25, body = 0.48, bottom = 0.27
   return (
     <>
       <ResponsiveContainer width="100%" height={theme.space * 10}>
@@ -161,15 +162,19 @@ const Chart: React.FC<ChartProps> = ({
           />
           <ReferenceLine y={0} stroke="grey" />
           <XAxis
+            {...{ stroke: theme.borderColor }}
+            tick={{ fontSize: 12 }}
             dataKey="date"
-            tickSize={10}
+            tickSize={56}
             axisLine={false}
             tickFormatter={formatDateTick}
             // tick={CustomXAxisLabel as any}
           />
           <YAxis
+            {...{ stroke: theme.borderColor }}
             dataKey={areaDataKey}
             type="number"
+            tick={{ fontSize: 12 }}
             padding={{ bottom: 60 }}
             // domain={[-8, 20]}
             axisLine={false}

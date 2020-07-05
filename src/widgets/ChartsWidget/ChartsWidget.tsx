@@ -158,7 +158,7 @@ const ChartsWidget: React.FC<{}> = () => {
             data={[{ size: 0 }, { size: 0 }]}
             dataKey="size"
             title={intl.formatMessage(messages.deadLetterQueueTitle)}
-            iconName={IconName.database}
+            iconName={IconName.document}
           />
         </Tab>
       </Tabs>
