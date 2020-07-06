@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/dashbird-test-task/static/css/main.37e9d223.chunk.css",
-    "main.js": "/dashbird-test-task/static/js/main.398150fc.chunk.js",
-    "main.js.map": "/dashbird-test-task/static/js/main.398150fc.chunk.js.map",
+    "main.css": "/dashbird-test-task/static/css/main.4b783b38.chunk.css",
+    "main.js": "/dashbird-test-task/static/js/main.09e5f926.chunk.js",
+    "main.js.map": "/dashbird-test-task/static/js/main.09e5f926.chunk.js.map",
     "runtime-main.js": "/dashbird-test-task/static/js/runtime-main.9c6309d1.js",
     "runtime-main.js.map": "/dashbird-test-task/static/js/runtime-main.9c6309d1.js.map",
-    "static/js/2.8b1a4b47.chunk.js": "/dashbird-test-task/static/js/2.8b1a4b47.chunk.js",
-    "static/js/2.8b1a4b47.chunk.js.map": "/dashbird-test-task/static/js/2.8b1a4b47.chunk.js.map",
+    "static/js/2.9172df67.chunk.js": "/dashbird-test-task/static/js/2.9172df67.chunk.js",
+    "static/js/2.9172df67.chunk.js.map": "/dashbird-test-task/static/js/2.9172df67.chunk.js.map",
     "index.html": "/dashbird-test-task/index.html",
-    "precache-manifest.679b9e572f45ea671bb5555c776d115b.js": "/dashbird-test-task/precache-manifest.679b9e572f45ea671bb5555c776d115b.js",
+    "precache-manifest.f1f2d4d293d6f510d177a9e9a293fc38.js": "/dashbird-test-task/precache-manifest.f1f2d4d293d6f510d177a9e9a293fc38.js",
     "service-worker.js": "/dashbird-test-task/service-worker.js",
-    "static/css/main.37e9d223.chunk.css.map": "/dashbird-test-task/static/css/main.37e9d223.chunk.css.map",
-    "static/js/2.8b1a4b47.chunk.js.LICENSE.txt": "/dashbird-test-task/static/js/2.8b1a4b47.chunk.js.LICENSE.txt",
+    "static/css/main.4b783b38.chunk.css.map": "/dashbird-test-task/static/css/main.4b783b38.chunk.css.map",
+    "static/js/2.9172df67.chunk.js.LICENSE.txt": "/dashbird-test-task/static/js/2.9172df67.chunk.js.LICENSE.txt",
     "static/media/alert.34c73f87.svg": "/dashbird-test-task/static/media/alert.34c73f87.svg",
     "static/media/calendar.e3c7d004.svg": "/dashbird-test-task/static/media/calendar.e3c7d004.svg",
     "static/media/caret-down.ca82bc74.svg": "/dashbird-test-task/static/media/caret-down.ca82bc74.svg",
@@ -29,8 +29,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.9c6309d1.js",
-    "static/js/2.8b1a4b47.chunk.js",
-    "static/css/main.37e9d223.chunk.css",
-    "static/js/main.398150fc.chunk.js"
+    "static/js/2.9172df67.chunk.js",
+    "static/css/main.4b783b38.chunk.css",
+    "static/js/main.09e5f926.chunk.js"
   ]
 }
