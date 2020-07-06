@@ -1,0 +1,17 @@
+@import '../../../theme.scss';
+
+.root {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.icon {
+  width: 12px;
+  height: 12px;
+  margin-right: spacing(0.5);
+}

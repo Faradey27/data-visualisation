@@ -9,7 +9,6 @@ import {
   YAxis,
 } from 'recharts';
 
-import { QueueSizeHistoryEntry } from '../../../api';
 import theme from '../../../theme.scss';
 import { DEFAULT_POINT_INDEX } from '../useChartData';
 import BrushChart from './QueueSizeBrushChart';
@@ -25,8 +24,6 @@ import YAxisTick from './YAxisTick';
 
 // TODO reduce code duplication with QueueChart
 
-// TODO in real life here should be smth smater
-const yAxisDomain = [0, (dataMax: number) => Math.min(8000, dataMax + 1000)];
 const yAxisPadding = { bottom: 60 };
 
 // we put "any" to overcome bug in typings

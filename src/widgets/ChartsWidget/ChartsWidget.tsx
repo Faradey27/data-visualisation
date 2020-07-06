@@ -16,7 +16,6 @@ import {
   fetchResponseDelayHistoryAction,
 } from '../../state/chart';
 import styles from './ChartsWidget.module.scss';
-import ChartLegend from './components/ChartLegend';
 import GeneralAreaChart from './components/GeneralAreaChart';
 import QueueCharts from './components/QueueCharts';
 import { DEFAULT_POINT_INDEX, TabId, useChartData } from './useChartData';
@@ -186,13 +185,6 @@ const ChartsWidget: React.FC<{}> = () => {
           </Tab>
         </Tabs>
         <TabPanel>
-          <div className={styles.rangeCalendar}>
-            <RangeCalendar
-              onApply={handleRangeApply}
-              isOpen={isCalendarOpen}
-              onOpen={handleOpenCalendar}
-            />
-          </div>
           {selectedTabId === TabId.lastQueueSize ? (
             <QueueCharts
               startIndex={startIndex}
@@ -221,6 +213,13 @@ const ChartsWidget: React.FC<{}> = () => {
               onChangeStartIndex={setStartIndex}
             />
           )}
+          <div className={styles.rangeCalendar}>
+            <RangeCalendar
+              onApply={handleRangeApply}
+              isOpen={isCalendarOpen}
+              onOpen={handleOpenCalendar}
+            />
+          </div>
         </TabPanel>
       </RequestStateVisualize>
     </div>

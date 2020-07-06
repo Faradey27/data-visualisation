@@ -2,9 +2,9 @@ import React, { memo } from 'react';
 import { defineMessage, useIntl } from 'react-intl';
 import clsx from 'clsx';
 
-import Icon, { IconName } from '../../../components/Icon';
-import RangeCalendar from '../../../components/RangeCalendar';
+import { IconName } from '../../../components/Icon';
 import styles from './ChartLegend.module.scss';
+import DrillDownLink from './DrillDownLink';
 
 const messages = defineMessage({
   pendingIncreased: {
@@ -51,18 +51,15 @@ const ChartLegend: React.FC<{ pendingValue?: number }> = ({ pendingValue }) => {
             </span>
           ) : null}
         </span>
-        <span className={styles.legendItem}>
-          <Icon iconName={IconName.alert} className={styles.icon} />
+        <DrillDownLink icon={IconName.alert}>
           {intl.formatMessage(messages.alerts)}
-        </span>
-        <span className={styles.legendItem}>
-          <Icon iconName={IconName.idea} className={styles.icon} />
+        </DrillDownLink>
+        <DrillDownLink icon={IconName.idea}>
           {intl.formatMessage(messages.insights)}
-        </span>
-        <span className={styles.legendItem}>
-          <Icon iconName={IconName.settings} className={styles.icon} />
+        </DrillDownLink>
+        <DrillDownLink icon={IconName.settings}>
           {intl.formatMessage(messages.configChange)}
-        </span>
+        </DrillDownLink>
       </div>
     </div>
   );
